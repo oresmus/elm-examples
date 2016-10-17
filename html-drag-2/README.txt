@@ -1,4 +1,4 @@
-This is copied from the prior example html-drag-1, and then modified (by editing the .elm file) to permit dragging of multiple objects independently. (I also made all imports explicit, and commented all code I don't yet fully understand.)
+This is copied from the prior example html-drag-1, and then modified (by editing the .elm file) to permit dragging of multiple objects independently. (I also made all imports explicit, and commented all code I don't yet fully understand, and added a list of known bugs as initial comments.)
 
 To remake index.html, just rerun this command in your shell:
 
