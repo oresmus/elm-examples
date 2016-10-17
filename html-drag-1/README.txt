@@ -20,6 +20,6 @@ To create this directory from an empty state, it was sufficient to:
 
 which "Successfully generated index.html".
 
-To run the example, just open index.html in a browser (locally on your own computer). (This is a large, self-contained html file containing a lot of js code. There are also ways of getting elm to put that js code in a separate file, so the html file stays small.)
+To run this example directly in your browser, navigate to https://oresmus.github.io/elm-examples/html-drag-1/ (which only works because I set up "github pages" on this repository).
 
-(To run it directly from this github repo, come back in a little while after I've looked up the easiest way to set that up.)
+To run it locally, just open index.html in a browser. (This is a large, self-contained html file containing a lot of js code. There are also ways of getting elm to put that js code in a separate file, so the html file stays small.)
