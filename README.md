@@ -1,5 +1,5 @@
 # elm-examples
-writing or improving simple examples seems like a good way to learn a new language.
+Writing or improving simple examples seems like a good way to learn a new language.
 
 To run these in your browser (via the "github pages" feature), navigate to
 
