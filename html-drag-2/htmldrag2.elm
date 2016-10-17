@@ -1,10 +1,21 @@
-import Html exposing (..)
+-- elm-examples/html-drag-2/htmldrag2.elm
+
+-- this is modified from the elm guide example for mouse drags (which drags one object):
+--
+-- it lets the user drag several objects independently.
+-- (as in the original, the objects are shown as html divs.)
+-- certain lines are commented as "not fully understood", since I don't yet fully understand their code.
+
+-- known bugs (also in original code):
+-- - the text shown in the dragged objects (html divs) sometimes gets selected (by the browser) while dragging them.
+-- - no provision is made for dragging out of range, scrolling, etc. I don't know whether it works properly in all such cases.
+
+import Html exposing (Html, div, text, Attribute)
 import Html.App as App
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (style)
 import Html.Events exposing (on)
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
-
 
 
 main =
@@ -18,12 +29,19 @@ main =
 
 -- MODEL
 
+type alias ObjId = Int
 
-type alias Model =
-    { position : Position
-    , drag : Maybe Drag
+type alias Object =
+    { id : ObjId
+    , position : Position
+    , colorstyle : String
+    , dragging : Bool
     }
 
+type alias Model =
+    { objects : List Object
+    , drag : Maybe Drag
+    }
 
 type alias Drag =
     { start : Position
@@ -32,16 +50,18 @@ type alias Drag =
 
 
 init : ( Model, Cmd Msg )
-init =
-  ( Model (Position 200 200) Nothing, Cmd.none )
-
+init = ( Model [
+                  Object 1 (Position   50 200)  "#8D2F3C" False
+                , Object 2 (Position 200 200)  "#3C8D2F" False
+                , Object 3 (Position 350 200)  "#2F3C8D" False
+           ] Nothing, Cmd.none )
 
 
 -- UPDATE
 
 
 type Msg
-    = DragStart Position
+    = DragStart ObjId Position
     | DragAt Position
     | DragEnd Position
 
@@ -52,18 +72,34 @@ update msg model =
 
 
 updateHelp : Msg -> Model -> Model
-updateHelp msg ({position, drag} as model) =
+updateHelp msg ({objects, drag} as model) =
   case msg of
-    DragStart xy ->
-      Model position (Just (Drag xy xy))
+    DragStart id xy ->
+      Model (startdrag id True objects) (Just (Drag xy xy))
 
     DragAt xy ->
-      Model position (Maybe.map (\{start} -> Drag start xy) drag)
+      Model objects (Maybe.map (\{start} -> Drag start xy) drag) -- not fully understood
 
     DragEnd _ ->
-      Model (getPosition model) Nothing
+      Model (getNewObjects model) Nothing
 
 
+startdrag : ObjId -> Bool -> List Object -> List Object
+startdrag id on objects =
+    List.map (startdragObject id on) objects
+
+startdragObject : ObjId -> Bool ->  Object ->  Object
+startdragObject id on object =
+     if object.id == id then { object | dragging = on } else { object | dragging = False } -- all False unless indexed specifically
+ 
+getNewObjects : Model -> List Object
+getNewObjects {objects, drag} = 
+      List.map (getNewObject drag) objects -- ### some dup code with the related view code using drag
+ 
+getNewObject : Maybe Drag -> Object -> Object
+getNewObject drag object = 
+    { object | position = getPosition object drag }
+ 
 
 -- SUBSCRIPTIONS
 
@@ -86,15 +122,19 @@ subscriptions model =
 
 
 view : Model -> Html Msg
-view model =
+view {objects,drag} = 
+  div [] (List.map (viewObject drag) objects)
+
+viewObject : Maybe Drag -> Object -> Html Msg
+viewObject drag object =
   let
     realPosition =
-      getPosition model
+      getPosition object drag
   in
     div
-      [ onMouseDown
+      [ onMouseDown object.id
       , style
-          [ "background-color" => "#3C8D2F"
+          [ "background-color" => object.colorstyle
           , "cursor" => "move"
 
           , "width" => "100px"
@@ -110,7 +150,7 @@ view model =
           , "justify-content" => "center"
           ]
       ]
-      [ text "Drag Me!"
+      [ text ("Drag Me! (" ++ toString object.id ++ ")")
       ]
 
 
@@ -119,19 +159,22 @@ px number =
   toString number ++ "px"
 
 
-getPosition : Model -> Position
-getPosition {position, drag} =
+getPosition : Object -> Maybe Drag -> Position
+getPosition object drag =
+  let position = object.position in
   case drag of
     Nothing ->
       position
 
     Just {start,current} ->
-      Position
+      if object.dragging then
+       Position
         (position.x + current.x - start.x)
         (position.y + current.y - start.y)
+      else
+       position
 
 
-onMouseDown : Attribute Msg
-onMouseDown =
-  on "mousedown" (Json.map DragStart Mouse.position)
-
+onMouseDown : ObjId -> Attribute Msg
+onMouseDown id =
+  on "mousedown" (Json.map (DragStart id) Mouse.position) -- not fully understood ###
