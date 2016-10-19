@@ -1,4 +1,4 @@
-import Html exposing (Html,div,input)
+import Html exposing (Html,div,input,text)
 import Html.App as App
 import Svg exposing (svg,circle,line)
 import Svg.Attributes exposing (viewBox,width,cx,cy,r,fill,x1,y1,x2,y2,stroke)
