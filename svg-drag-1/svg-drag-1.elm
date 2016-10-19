@@ -1,5 +1,10 @@
 -- elm-examples/svg-drag-1/svg-drag-1.elm
 
+-- needed:
+-- % elm-package install elm-lang/mouse
+-- % elm-package install elm-lang/svg
+-- % elm-make *.elm
+
 -- to remake index.html, run % elm-make svg-drag-1.elm 
 
 -- this is [### I mean, will be soon] modified from the prior example html-drag-2, in several ways: [planned ###]
@@ -21,7 +26,7 @@
 import Html exposing (Html, div, text, Attribute)
 import Html.App as App
 import Html.Attributes exposing (style)
-import Html.Events exposing (on)
+import Svg.Events exposing (on)
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
 
