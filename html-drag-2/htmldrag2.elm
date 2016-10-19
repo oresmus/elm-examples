@@ -1,10 +1,10 @@
 -- elm-examples/html-drag-2/htmldrag2.elm
 
--- this is modified from the elm guide example for mouse drags (which drags one object):
---
+-- this is modified from the elm guide example for mouse drags (which drags one object).
 -- it lets the user drag several objects independently.
 -- (as in the original, the objects are shown as html divs.)
 -- certain lines are commented as "not fully understood", since I don't yet fully understand their code.
+-- warning: I use "object" as a variable name, though there is also Html.object (which it conflicted with, before I removed implicit imports).
 
 -- known bugs (also in original code):
 -- - the text shown in the dragged objects (html divs) sometimes gets selected (by the browser) while dragging them.
