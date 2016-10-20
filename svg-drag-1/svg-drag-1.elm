@@ -166,8 +166,8 @@ view {objects,drag} =
 --          , ("margin"     , (toString margin) ++ "px")
 --          , ("font-family", "Times, serif")
 --          ],
-          viewBox "0 0 100 100" -- ### will adding this help? nope... not even after commenting out style above, adding width below
-          , width "300px"
+          viewBox "0 0 600 600" -- ### will adding this help? nope... not even after commenting out style above, adding width below
+          , width "600px"
         ]
         [ g [] view' ]
 
