@@ -188,15 +188,17 @@ view {objects,drag} =
 
           viewBox "-300 -300 600 600" -- this (xleft,ytop,w,h) box is scaled to fit one axis, then centered in the following one (by experiment)
           , width "800px"
-          , height "600px" -- ### plan: eventually get border style to work ###
+          , height "600px"
         ]
         [
           g [] view' 
         ]
 
--- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
--- but renamed from drawText, and modified to fix compile errors; works now; text is not selectable by browser.
--- also gave it two lines. [### should enhance to split newlines out of a single string]
+margin : Int
+margin = 8
+
+
+-- (this could be enhanced to split a single arg at newlines, or to take a list of lines)
 drawLegendText : String -> String -> Svg msg
 drawLegendText line1 line2 =
   Svg.text'
@@ -207,17 +209,8 @@ drawLegendText line1 line2 =
         [ ("-webkit-user-select", "none") ]
     ]
     [ Svg.tspan [x "0", dy "1.2em"] [Svg.text line1] 
-          -- ### not sure why dy "0.6em" was recommended for first tspan by
-          --     http://stackoverflow.com/questions/31469134/how-to-display-multiple-lines-of-text-in-svg
-          -- another source suggested 1.2em for all tspans, like I use here.
-          -- I didn't read this, but it looks more complete: https://www.safaribooksonline.com/library/view/svg-text-layout/9781491933817/ch04.html
-          -- browser syntax warning: "1.2em" works, but "1.2 em" (extra space) works incorrectly -- the tspans are drawn on top of each other.
     , Svg.tspan [x "0", dy "1.2em"] [Svg.text line2]
     ]
-
--- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82; bks note: might mess up mouse event posns, see correctMouseEvent in there
-margin : Int
-margin = 8
 
 
 viewObject : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with output type Svg Msg or Html Msg 
@@ -245,7 +238,7 @@ viewObject drag object =
             y (toString p.y), 
             fontFamily "Verdana", 
             fontSize "12",
-            textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically. ###
+            textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically (maybe use tspan dy??). ###
           , style
               [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
 
