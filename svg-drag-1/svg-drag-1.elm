@@ -237,7 +237,7 @@ viewObject drag object =
           [ cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
-          , fill        object.colorstyle -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red"
+          , fill        "rgba(255,0,0,0.1)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
           ]
