@@ -182,8 +182,9 @@ view {objects,drag} =
           -- i.e. object motions are 2x longer than mouse motions (though other than that, dragging still works correctly, as also expected).
           --
           -- using viewBox "-300 -300 300 300" we discover the latter params are w,h, not x2,y2, so all params are (xleft,ytop,w,h).
+          -- using viewBox "-300 -300 600 600" we confirm this, and get back to 1:1 scale (thus correct dragging w/o transform).
 
-          viewBox "-300 -300 300 300" -- this (xleft,ytop,w,h) box is scaled to fit one axis, then centered in the following one (by experiment)
+          viewBox "-300 -300 600 600" -- this (xleft,ytop,w,h) box is scaled to fit one axis, then centered in the following one (by experiment)
           , width "800px"
           , height "600px" -- ### plan: eventually get border style to work ###
         ]
