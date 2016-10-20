@@ -176,11 +176,13 @@ view {objects,drag} =
           -- so the svg coords that are visible are y = 0 (top) to 600 (bot), x = -100 (left) to 700 (right)
           -- (as proven by printing them in the circles, in viewObject).
           --
-          -- using same width/height box but smaller or bigger viewBox is untested. ###
+          -- using same width/height box but smaller viewBox "0 0 300 300", we find that the viewBox scales up (2x) to fit,
+          -- so all objects are 2x bigger (including text and coordsys), 
+          -- and dragging is not compensated for this scale (as expected, since there is no obvious code to do a transform),
+          -- i.e. object motions are 2x longer than mouse motions (though other than that, dragging still works correctly, as also expected).
           --
-          -- effect on mouse event coords is untested (except scale must be 1:1 and/or a transform gets done, or dragging would not be correct).
 
-          viewBox "0 0 600 600" -- when this is smaller than following width/height, this box is centered in the following one (by experiment)
+          viewBox "0 0 300 300" -- this box is scaled to fit on one axis, then centered in the following one (by experiment)
           , width "800px"
           , height "600px" -- ### plan: eventually get border style to work ###
         ]
