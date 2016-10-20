@@ -23,10 +23,15 @@
 -- - no provision is made for dragging out of range, scrolling, etc. I don't know whether it works properly in all such cases.
 
 -- ### some imports might no longer be needed:
-import Html exposing (Html, div, text, Attribute)
+
+import Html exposing (Html, div, Attribute, svg)
 import Html.App as App
 import Html.Attributes exposing (style)
+
+import Svg exposing (Svg,circle,g)
 import Svg.Events exposing (on)
+import Svg.Attributes exposing (x,y,fontSize,cx,cy,r,fill,stroke,strokeWidth)
+
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
 
@@ -136,41 +141,63 @@ subscriptions model =
 
 view : Model -> Html Msg
 view {objects,drag} = 
-  div [] (List.map (viewObject drag) objects)
+  -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
+  let
+      view' =
+        drawText "The objects are draggable" ::
+          (List.map (viewObject drag) objects)
+  in
+      svg
+        [ style
+          [ ("border"     , "1px solid black")
+          , ("width"      , "800px")
+          , ("height"     , "600px")
+          , ("display"    , "block")
+          , ("margin"     , (toString margin) ++ "px")
+          , ("font-family", "Times, serif")
+          ]
+        ]
+        [ g [] view' ]
 
-viewObject : Maybe Drag -> Object -> Html Msg
+-- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
+-- but it had some compile errors, and looked a bit like nonsense, so i modified it, guessing...
+drawText : String -> Svg msg
+drawText string =
+  div
+    [ x         "20"
+    , y         "20"
+    , fontSize  "20"
+    , style
+        [ ("-webkit-user-select", "none") ]
+    ]
+    [ Svg.text string ]
+
+-- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82; bks note: might mess up mouse event posns, see correctMouseEvent in there
+margin : Int
+margin = 8
+
+
+viewObject : Maybe Drag -> Object -> Svg Msg -- ### note, compiles just as well with output type Svg Msg or Html Msg 
 viewObject drag object =
   let
-    realPosition =
-      getPosition object drag
+    p = getPosition object drag -- ### I could never get this to pass compiler when assigning directly to (x1, y1)
+    radius = 40
   in
-    div
-      [ onMouseDown object.id
-      , style
-          [ "background-color" => object.colorstyle
-          , "cursor" => "move"
-
-          , "width" => "100px"
-          , "height" => "100px"
-          , "border-radius" => "4px"
-          , "position" => "absolute"
-          , "left" => px realPosition.x
-          , "top" => px realPosition.y
-
-          , "color" => "white"
-          , "display" => "flex"
-          , "align-items" => "center"
-          , "justify-content" => "center"
+    g
+      [
+          onMouseDown object.id,
+          style [ "cursor" => "move" ]
+       ]
+      [ circle
+          [ cx          (toString p.x)
+          , cy          (toString p.y)
+          , r           (toString radius)
+          , fill        "rgba(255,0,0,0.1)"
+          , stroke      "black"
+          , strokeWidth "2"
           ]
+          []
       ]
-      [ text ("Drag Me! (" ++ toString object.id ++ ")")
-      ]
-
-
-px : Int -> String
-px number =
-  toString number ++ "px"
-
 
 getPosition : Object -> Maybe Drag -> Position
 getPosition object drag =
