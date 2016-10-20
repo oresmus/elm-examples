@@ -160,14 +160,14 @@ view {objects,drag} =
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
       view' =
-          drawLegendText "The objects are draggable" "(by their circles or text)." ::
+          drawLegendText "The objects are draggable" "(by their big circles only)." ::
           (List.map (viewObject drag) objects)
   in
       svg
         [ 
-          -- onMouseDownWhole, ### disabled, to avoid interference from bug of running after circle mousedown
+          -- onMouseDownWhole, ### disabled, to avoid interference from bug in which mousedown on main circle also fires this event
               -- ### BUGS in onMouseDownWhole:
-              -- 2 expected bugs (offset, synced drag); 
+              -- 2 expected bugs (offset, synced drag -- both should be easy to fix); 
               -- 2 unexpected bugs (also happens after circle mousedown, and only happens then -- nothing happens from click on plain bg).
           style
           [ ("border"     , "1px solid black")
@@ -231,20 +231,19 @@ viewObject drag object =
   in
     g
       [
-          onMouseDown object.id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
-          -- ### should try moving it into the circle alone, to see if I can get it to work there but not on the text.
-          -- ### then should try to verify the text does not stop drags on underneath objects. (might have to add a larger thing, to test that)
-          style [ "cursor" => "move" ]
+          -- onMouseDown object.id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
+          -- style [ "cursor" => "move" ]
        ]
       [ circle
-          [ cx          (toString p.x)
+          [ onMouseDown object.id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
+          , cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
           ] []
-      , Svg.text' 
+      , Svg.text' -- ### BUG: has typing cursor (though not selectable), and can block mousedown for other objs (depending on obj order).
           [ x (toString p.x), 
             y (toString p.y), 
             fontFamily "Verdana", 
@@ -257,7 +256,9 @@ viewObject drag object =
           [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
-      , circle -- smaller, above the main one
+      , circle -- smaller, above the main circle. 
+        -- ### BUG: blocks mousedown meant for other objects (visually behind it). 
+        -- Possible fixes: some svg feature, or use z order as kluge.
           [ cx     (toString p.x)
           , cy     (toString (p.y - radius - radius_small - 3))
           , r      (toString radius_small)
