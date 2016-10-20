@@ -30,7 +30,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,fontSize,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
+import Svg.Attributes exposing (x,y,fontSize,fontFamily,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
 
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
@@ -212,6 +212,9 @@ viewObject drag object =
           , strokeWidth "2"
           ]
           []
+      , Svg.text' [x (toString p.x), y (toString p.y), fontFamily "Verdana", fontSize "12"] [Svg.text "C"] -- ### child is a guess
+        -- see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
+        -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       ]
 
 getPosition : Object -> Maybe Drag -> Position
