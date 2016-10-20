@@ -30,7 +30,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,fontSize,fontFamily,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
+import Svg.Attributes exposing (x,y,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
 
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
@@ -212,7 +212,14 @@ viewObject drag object =
           , strokeWidth "2"
           ]
           []
-      , Svg.text' [x (toString p.x), y (toString p.y), fontFamily "Verdana", fontSize "12"] [Svg.text "C"] -- ### child is a guess
+      , Svg.text' 
+          [ x (toString p.x), 
+            y (toString p.y), 
+            fontFamily "Verdana", 
+            fontSize "12",
+            textAnchor "middle" -- this centers it horizontally (at least for a single char). I don't know how to center it vertically. ###
+           ] 
+          [Svg.text "C"] -- ### this child is a guess, but it works
         -- see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       ]
