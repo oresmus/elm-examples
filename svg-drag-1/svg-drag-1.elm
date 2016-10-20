@@ -32,7 +32,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
+import Svg.Attributes exposing (x,y,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height)
 
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
@@ -168,8 +168,21 @@ view {objects,drag} =
 --          , ("margin"     , (toString margin) ++ "px")
 --          , ("font-family", "Times, serif")
 --          ],
-          viewBox "0 0 600 600"
-          , width "600px"
+          -- interactions of viewBox and (width, height) (created by the code below; by experiment, in Safari):
+          --
+          -- with the style above commented out, and using viewBox and (width, height) of "0 0 600 600" and (800px,600px), 
+          -- the box of svg coords is centered in the width/height box, and fits it exactly in Y, 
+          -- but clipping is only done by the outer box, 
+          -- so the svg coords that are visible are y = 0 (top) to 600 (bot), x = -100 (left) to 700 (right)
+          -- (as proven by printing them in the circles, in viewObject).
+          --
+          -- using same width/height box but smaller or bigger viewBox is untested. ###
+          --
+          -- effect on mouse event coords is untested (except scale must be 1:1 and/or a transform gets done, or dragging would not be correct).
+
+          viewBox "0 0 600 600" -- when this is smaller than following width/height, this box is centered in the following one (by experiment)
+          , width "800px"
+          , height "600px" -- ### plan: eventually get border style to work ###
         ]
         [
           g [] view' 
@@ -223,7 +236,7 @@ viewObject drag object =
               [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
 
           ] 
-          [Svg.text ("obj " ++ (toString object.id))]
+          [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       ]
