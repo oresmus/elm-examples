@@ -231,6 +231,8 @@ viewObject drag object =
     g
       [
           onMouseDown object.id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
+          -- ### should try moving it into the circle alone, to see if I can get it to work there but not on the text.
+          -- ### then should try to verify the text does not stop drags on underneath objects. (might have to add a larger thing, to test that)
           style [ "cursor" => "move" ]
        ]
       [ circle
