@@ -230,14 +230,14 @@ viewObject drag object =
   in
     g
       [
-          onMouseDown object.id,
+          onMouseDown object.id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
           style [ "cursor" => "move" ]
        ]
       [ circle
           [ cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
-          , fill        "rgba(255,0,0,0.1)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", object.colorstyle
+          , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
           ]
