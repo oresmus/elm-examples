@@ -219,7 +219,10 @@ viewObject drag object =
             fontFamily "Verdana", 
             fontSize "12",
             textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically. ###
-           ] 
+          , style
+              [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
+
+          ] 
           [Svg.text ("obj " ++ (toString object.id))]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
