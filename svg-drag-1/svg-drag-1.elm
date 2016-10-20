@@ -196,6 +196,7 @@ view {objects,drag} =
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
 -- but renamed from drawText, and modified to fix compile errors; works now; text is not selectable by browser.
+-- also gave it two lines. [### should enhance to split newlines out of a single string]
 drawLegendText : String -> String -> Svg msg
 drawLegendText line1 line2 =
   Svg.text'
@@ -205,13 +206,13 @@ drawLegendText line1 line2 =
     , style
         [ ("-webkit-user-select", "none") ]
     ]
-    [ Svg.tspan [x "0", dy "1.2 em"] [Svg.text line1] 
-          -- ### not sure why dy "0.6 em" was recommended for first tspan by
-          -- http://stackoverflow.com/questions/31469134/how-to-display-multiple-lines-of-text-in-svg
-          -- another source suggested 1.2em for all tspans.
-          -- I didn't read this but it looks more complete: https://www.safaribooksonline.com/library/view/svg-text-layout/9781491933817/ch04.html
-          -- unfortunately this fails in Safari with either dy "1.2 em" or 0.6 -- the two tspan lines are drawn on top of each other.
-    , Svg.tspan [x "0", dy "1.2 em"] [Svg.text line2]
+    [ Svg.tspan [x "0", dy "1.2em"] [Svg.text line1] 
+          -- ### not sure why dy "0.6em" was recommended for first tspan by
+          --     http://stackoverflow.com/questions/31469134/how-to-display-multiple-lines-of-text-in-svg
+          -- another source suggested 1.2em for all tspans, like I use here.
+          -- I didn't read this, but it looks more complete: https://www.safaribooksonline.com/library/view/svg-text-layout/9781491933817/ch04.html
+          -- browser syntax warning: "1.2em" works, but "1.2 em" (extra space) works incorrectly -- the tspans are drawn on top of each other.
+    , Svg.tspan [x "0", dy "1.2em"] [Svg.text line2]
     ]
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82; bks note: might mess up mouse event posns, see correctMouseEvent in there
