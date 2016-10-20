@@ -30,7 +30,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,fontSize,cx,cy,r,fill,stroke,strokeWidth)
+import Svg.Attributes exposing (x,y,fontSize,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
 
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
@@ -157,14 +157,17 @@ view {objects,drag} =
           (List.map (viewObject drag) objects)
   in
       svg
-        [ style
-          [ ("border"     , "1px solid black")
-          , ("width"      , "800px")
-          , ("height"     , "600px")
-          , ("display"    , "block")
-          , ("margin"     , (toString margin) ++ "px")
-          , ("font-family", "Times, serif")
-          ]
+        [ 
+--          style
+--          [ ("border"     , "1px solid black")
+--          , ("width"      , "800px")
+--          , ("height"     , "600px")
+--          , ("display"    , "block")
+--          , ("margin"     , (toString margin) ++ "px")
+--          , ("font-family", "Times, serif")
+--          ],
+          viewBox "0 0 100 100" -- ### will adding this help? nope... not even after commenting out style above, adding width below
+          , width "300px"
         ]
         [ g [] view' ]
 
@@ -201,9 +204,9 @@ viewObject drag object =
           [ cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
-          , fill        "rgba(255,0,0,0.1)"
-          , stroke      "black"
-          , strokeWidth "2"
+          , fill        "#0B79CE" -- ### replaces "rgba(255,0,0,0.1)", will that help?? nope.
+   --       , stroke      "black" -- will removing these two lines help? ### nope
+   --       , strokeWidth "2"
           ]
           []
       ]
