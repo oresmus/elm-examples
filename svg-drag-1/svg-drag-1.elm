@@ -1,17 +1,19 @@
 -- elm-examples/svg-drag-1/svg-drag-1.elm
 
--- needed:
+-- needed to compile, when in a fresh directory:
 -- % elm-package install elm-lang/mouse
 -- % elm-package install elm-lang/svg
 -- % elm-make *.elm
 
--- to remake index.html, run % elm-make svg-drag-1.elm 
+-- to remake index.html, just run % elm-make *.elm [assuming *.elm matches only this file]
 
--- this is [### I mean, will be soon] modified from the prior example html-drag-2, in several ways: [planned ###]
+-- this is modified from the prior example html-drag-2, in several ways:
 --
--- - use svg instead of html
+-- + use svg instead of html
+--
+-- possible future mods: ###
 -- - drag by setting svg transform attribute
--- - use diff optims (keyed, lazy)
+-- - use optims of virtual-dom diff speed (keyed, lazy)
 -- - more ###
 --
 -- - ultimately it should grow into some kind of mouse-controlled "drawing program".
@@ -166,11 +168,10 @@ view {objects,drag} =
 --          , ("margin"     , (toString margin) ++ "px")
 --          , ("font-family", "Times, serif")
 --          ],
-          viewBox "0 0 600 600" -- ### will adding this help? nope... not even after commenting out style above, adding width below
+          viewBox "0 0 600 600"
           , width "600px"
         ]
         [
---        circle [ cx "50", cy "50", r "45",  fill "#0B79CE" ] [] -- now this is visible... remove it once the other stuff also is ### 
           g [] view' 
         ]
 
@@ -192,10 +193,10 @@ margin : Int
 margin = 8
 
 
-viewObject : Maybe Drag -> Object -> Svg Msg -- ### note, compiles just as well with output type Svg Msg or Html Msg 
+viewObject : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with output type Svg Msg or Html Msg 
 viewObject drag object =
   let
-    p = getPosition object drag -- ### I could never get this to pass compiler when assigning directly to (x1, y1)
+    p = getPosition object drag -- elm syntax note: I could never get this to pass compiler when assigning directly to (x1, y1)
     radius = 20
   in
     g
@@ -217,10 +218,10 @@ viewObject drag object =
             y (toString p.y), 
             fontFamily "Verdana", 
             fontSize "12",
-            textAnchor "middle" -- this centers it horizontally. I don't know how to center it vertically. ###
+            textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically. ###
            ] 
           [Svg.text ("obj " ++ (toString object.id))]
-        -- see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
+        -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       ]
 
