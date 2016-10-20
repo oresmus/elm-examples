@@ -9133,20 +9133,20 @@ var _user$project$Main$Drag = F2(
 var _user$project$Main$updateHelp = F2(
 	function (msg, _p5) {
 		var _p6 = _p5;
-		var _p11 = _p6.objects;
+		var _p12 = _p6.objects;
 		var _p7 = msg;
 		switch (_p7.ctor) {
 			case 'DragStart':
 				var _p8 = _p7._1;
 				return A2(
 					_user$project$Main$Model,
-					A3(_user$project$Main$startdrag, _p7._0, true, _p11),
+					A3(_user$project$Main$startdrag, _p7._0, true, _p12),
 					_elm_lang$core$Maybe$Just(
 						A2(_user$project$Main$Drag, _p8, _p8)));
 			case 'DragAt':
 				return A2(
 					_user$project$Main$Model,
-					_p11,
+					_p12,
 					A2(
 						_elm_lang$core$Maybe$map,
 						function (_p9) {
@@ -9154,11 +9154,24 @@ var _user$project$Main$updateHelp = F2(
 							return A2(_user$project$Main$Drag, _p10.start, _p7._0);
 						},
 						_p6.drag));
-			default:
+			case 'DragEnd':
 				return A2(
 					_user$project$Main$Model,
 					_user$project$Main$getNewObjects(_p6),
 					_elm_lang$core$Maybe$Nothing);
+			default:
+				var _p11 = _p7._0;
+				return A2(
+					_user$project$Main$Model,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_p12,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								A4(_user$project$Main$Object, 13, _p11, '#3C8D2F', true)
+							])),
+					_elm_lang$core$Maybe$Just(
+						A2(_user$project$Main$Drag, _p11, _p11)));
 		}
 	});
 var _user$project$Main$update = F2(
@@ -9169,6 +9182,13 @@ var _user$project$Main$update = F2(
 			_1: _elm_lang$core$Platform_Cmd$none
 		};
 	});
+var _user$project$Main$DragStartWhole = function (a) {
+	return {ctor: 'DragStartWhole', _0: a};
+};
+var _user$project$Main$onMouseDownWhole = A2(
+	_elm_lang$svg$Svg_Events$on,
+	'mousedown',
+	A2(_elm_lang$core$Json_Decode$map, _user$project$Main$DragStartWhole, _elm_lang$mouse$Mouse$position));
 var _user$project$Main$DragEnd = function (a) {
 	return {ctor: 'DragEnd', _0: a};
 };
@@ -9176,8 +9196,8 @@ var _user$project$Main$DragAt = function (a) {
 	return {ctor: 'DragAt', _0: a};
 };
 var _user$project$Main$subscriptions = function (model) {
-	var _p12 = model.drag;
-	if (_p12.ctor === 'Nothing') {
+	var _p13 = model.drag;
+	if (_p13.ctor === 'Nothing') {
 		return _elm_lang$core$Platform_Sub$none;
 	} else {
 		return _elm_lang$core$Platform_Sub$batch(
@@ -9267,19 +9287,20 @@ var _user$project$Main$viewObject = F2(
 						]))
 				]));
 	});
-var _user$project$Main$view = function (_p13) {
-	var _p14 = _p13;
+var _user$project$Main$view = function (_p14) {
+	var _p15 = _p14;
 	var view$ = A2(
 		_elm_lang$core$List_ops['::'],
 		A2(_user$project$Main$drawLegendText, 'The objects are draggable', '(by their circles or text).'),
 		A2(
 			_elm_lang$core$List$map,
-			_user$project$Main$viewObject(_p14.drag),
-			_p14.objects));
+			_user$project$Main$viewObject(_p15.drag),
+			_p15.objects));
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		_elm_lang$core$Native_List.fromArray(
 			[
+				_user$project$Main$onMouseDownWhole,
 				_elm_lang$html$Html_Attributes$style(
 				_elm_lang$core$Native_List.fromArray(
 					[

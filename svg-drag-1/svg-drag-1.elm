@@ -93,6 +93,7 @@ type Msg
     = DragStart ObjId Position
     | DragAt Position
     | DragEnd Position
+    | DragStartWhole Position
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -112,6 +113,10 @@ updateHelp msg ({objects, drag} as model) =
     DragEnd _ ->
       Model (getNewObjects model) Nothing
 
+    DragStartWhole xy ->
+      Model 
+          (objects ++ [ (Object 13 xy "#3C8D2F" True) ]) -- ### bug: all new objects have same id; I think that's ok but they'll drag in sync ###
+          (Just (Drag xy xy))
 
 startdrag : ObjId -> Bool -> List Object -> List Object
 startdrag id on objects =
@@ -159,7 +164,10 @@ view {objects,drag} =
           (List.map (viewObject drag) objects)
   in
       svg
-        [ 
+        [ onMouseDownWhole, 
+              -- ### BUGS in onMouseDownWhole:
+              -- 2 expected bugs (offset, synced drag); 
+              -- 2 unexpected bugs (also happens after circle mousedown, and only happens then -- nothing happens from click on plain bg).
           style
           [ ("border"     , "1px solid black")
 --          , ("width"      , "800px")
@@ -266,4 +274,9 @@ getPosition object drag =
 
 onMouseDown : ObjId -> Attribute Msg
 onMouseDown id =
-  on "mousedown" (Json.map (DragStart id) Mouse.position) -- not fully understood ###
+  on "mousedown" (Json.map (DragStart id) Mouse.position) -- not fully understood, re Json.map ###
+
+onMouseDownWhole : Attribute Msg
+onMouseDownWhole =
+  on "mousedown" (Json.map DragStartWhole Mouse.position) -- not fully understood, re Json.map ###
+
