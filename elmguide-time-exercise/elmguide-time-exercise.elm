@@ -74,7 +74,8 @@ view model =
       toString (50 + 40 * sin angle)
   in
     div [] [
-     text "hi", text "lo",input [Html.Attributes.type' "checkbox", onClick OnOff ] [],
+     input [Html.Attributes.type' "checkbox", onClick OnOff ] [],
+     text "pause update",
      svg [ viewBox "0 0 100 100", width "300px" ]
       [ circle [ cx "50", cy "50", r "45",  fill (if model.on then "#0B79CE" else "#7979CE") ] []
       , line [ x1 "50", y1 "50", x2 handX, y2 handY, stroke "#023963" ] []
