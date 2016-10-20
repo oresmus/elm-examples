@@ -219,7 +219,7 @@ viewObject drag object =
             fontSize "12",
             textAnchor "middle" -- this centers it horizontally (at least for a single char). I don't know how to center it vertically. ###
            ] 
-          [Svg.text "C"] -- ### this child is a guess, but it works
+          [Svg.text (toString object.id)]
         -- see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       ]
