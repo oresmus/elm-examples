@@ -9215,9 +9215,12 @@ var _user$project$Main$viewObject = F2(
 var _user$project$Main$view = function (_p13) {
 	var _p14 = _p13;
 	var view$ = A2(
-		_elm_lang$core$List$map,
-		_user$project$Main$viewObject(_p14.drag),
-		_p14.objects);
+		_elm_lang$core$List_ops['::'],
+		_elm_lang$svg$Svg$text('The objects are draggable'),
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$Main$viewObject(_p14.drag),
+			_p14.objects));
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		_elm_lang$core$Native_List.fromArray(

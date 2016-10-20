@@ -153,7 +153,7 @@ view {objects,drag} =
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
       view' =
-        -- drawText "The objects are draggable" :: -- ### zapped to see if that fixed mystery bug -- didn't
+          Svg.text "The objects are draggable" :: -- ### ok now?? (no longer using drawText)... no, no text is visible. ###
           (List.map (viewObject drag) objects)
   in
       svg
