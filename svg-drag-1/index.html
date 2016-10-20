@@ -8960,25 +8960,47 @@ var _user$project$Main$getPosition = F2(
 		}
 	});
 var _user$project$Main$margin = 8;
-var _user$project$Main$drawLegendText = function (string) {
-	return A2(
-		_elm_lang$svg$Svg$text$,
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$svg$Svg_Attributes$x('20'),
-				_elm_lang$svg$Svg_Attributes$y('20'),
-				_elm_lang$svg$Svg_Attributes$fontSize('20'),
-				_elm_lang$html$Html_Attributes$style(
-				_elm_lang$core$Native_List.fromArray(
-					[
-						{ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'}
-					]))
-			]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$svg$Svg$text(string)
-			]));
-};
+var _user$project$Main$drawLegendText = F2(
+	function (line1, line2) {
+		return A2(
+			_elm_lang$svg$Svg$text$,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$x('20'),
+					_elm_lang$svg$Svg_Attributes$y('20'),
+					_elm_lang$svg$Svg_Attributes$fontSize('20'),
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							{ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'}
+						]))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$svg$Svg$tspan,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$svg$Svg_Attributes$x('0'),
+							_elm_lang$svg$Svg_Attributes$dy('1.2 em')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$svg$Svg$text(line1)
+						])),
+					A2(
+					_elm_lang$svg$Svg$tspan,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$svg$Svg_Attributes$x('0'),
+							_elm_lang$svg$Svg_Attributes$dy('1.2 em')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$svg$Svg$text(line2)
+						]))
+				]));
+	});
 var _user$project$Main_ops = _user$project$Main_ops || {};
 _user$project$Main_ops['=>'] = F2(
 	function (v0, v1) {
@@ -9249,7 +9271,7 @@ var _user$project$Main$view = function (_p13) {
 	var _p14 = _p13;
 	var view$ = A2(
 		_elm_lang$core$List_ops['::'],
-		_user$project$Main$drawLegendText('The objects are draggable.'),
+		A2(_user$project$Main$drawLegendText, 'The objects are draggable', '(by their circles or text).'),
 		A2(
 			_elm_lang$core$List$map,
 			_user$project$Main$viewObject(_p14.drag),
@@ -9258,6 +9280,20 @@ var _user$project$Main$view = function (_p13) {
 		_elm_lang$svg$Svg$svg,
 		_elm_lang$core$Native_List.fromArray(
 			[
+				_elm_lang$html$Html_Attributes$style(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						{ctor: '_Tuple2', _0: 'border', _1: '1px solid black'},
+						{ctor: '_Tuple2', _0: 'display', _1: 'block'},
+						{
+						ctor: '_Tuple2',
+						_0: 'margin',
+						_1: A2(
+							_elm_lang$core$Basics_ops['++'],
+							_elm_lang$core$Basics$toString(_user$project$Main$margin),
+							'px')
+					}
+					])),
 				_elm_lang$svg$Svg_Attributes$viewBox('-300 -300 600 600'),
 				_elm_lang$svg$Svg_Attributes$width('800px'),
 				_elm_lang$svg$Svg_Attributes$height('600px')

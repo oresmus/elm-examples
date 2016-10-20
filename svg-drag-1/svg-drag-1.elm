@@ -32,7 +32,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height)
+import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height)
 
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
@@ -155,19 +155,19 @@ view {objects,drag} =
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
       view' =
-          drawLegendText "The objects are draggable." ::
+          drawLegendText "The objects are draggable" "(by their circles or text)." ::
           (List.map (viewObject drag) objects)
   in
       svg
         [ 
---          style
---          [ ("border"     , "1px solid black")
+          style
+          [ ("border"     , "1px solid black")
 --          , ("width"      , "800px")
 --          , ("height"     , "600px")
---          , ("display"    , "block")
---          , ("margin"     , (toString margin) ++ "px")
+          , ("display"    , "block")
+          , ("margin"     , (toString margin) ++ "px")
 --          , ("font-family", "Times, serif")
---          ],
+          ],
           -- interactions of viewBox and (width, height) (created by the code below; by experiment, in Safari):
           --
           -- with the style above commented out, and using viewBox and (width, height) of "0 0 600 600" and (800px,600px), 
@@ -183,6 +183,8 @@ view {objects,drag} =
           --
           -- using viewBox "-300 -300 300 300" we discover the latter params are w,h, not x2,y2, so all params are (xleft,ytop,w,h).
           -- using viewBox "-300 -300 600 600" we confirm this, and get back to 1:1 scale (thus correct dragging w/o transform).
+          --
+          -- now we'll reenable some of the style above, and see if things still work. Yes, they do, with border, display, margin.
 
           viewBox "-300 -300 600 600" -- this (xleft,ytop,w,h) box is scaled to fit one axis, then centered in the following one (by experiment)
           , width "800px"
@@ -194,8 +196,8 @@ view {objects,drag} =
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
 -- but renamed from drawText, and modified to fix compile errors; works now; text is not selectable by browser.
-drawLegendText : String -> Svg msg
-drawLegendText string =
+drawLegendText : String -> String -> Svg msg
+drawLegendText line1 line2 =
   Svg.text'
     [ x         "20"
     , y         "20"
@@ -203,7 +205,14 @@ drawLegendText string =
     , style
         [ ("-webkit-user-select", "none") ]
     ]
-    [ Svg.text string ]
+    [ Svg.tspan [x "0", dy "1.2 em"] [Svg.text line1] 
+          -- ### not sure why dy "0.6 em" was recommended for first tspan by
+          -- http://stackoverflow.com/questions/31469134/how-to-display-multiple-lines-of-text-in-svg
+          -- another source suggested 1.2em for all tspans.
+          -- I didn't read this but it looks more complete: https://www.safaribooksonline.com/library/view/svg-text-layout/9781491933817/ch04.html
+          -- unfortunately this fails in Safari with either dy "1.2 em" or 0.6 -- the two tspan lines are drawn on top of each other.
+    , Svg.tspan [x "0", dy "1.2 em"] [Svg.text line2]
+    ]
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82; bks note: might mess up mouse event posns, see correctMouseEvent in there
 margin : Int
