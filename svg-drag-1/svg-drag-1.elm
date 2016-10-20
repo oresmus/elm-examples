@@ -69,9 +69,18 @@ type alias Drag =
 
 init : ( Model, Cmd Msg )
 init = ( Model [
-                  Object 1 (Position   50 200)  "#8D2F3C" False
+                  Object 1 (Position  50 200)  "#8D2F3C" False
                 , Object 2 (Position 200 200)  "#3C8D2F" False
                 , Object 3 (Position 350 200)  "#2F3C8D" False
+                , Object 4 (Position  -50 200)  "#8D2F3C" False
+                , Object 5 (Position -200 200)  "#3C8D2F" False
+                , Object 6 (Position -350 200)  "#2F3C8D" False
+                , Object 7 (Position  50 -200)  "#8D2F3C" False
+                , Object 8 (Position 200 -200)  "#3C8D2F" False
+                , Object 9 (Position 350 -200)  "#2F3C8D" False
+                , Object 10 (Position  -50 -200)  "#8D2F3C" False
+                , Object 11 (Position -200 -200)  "#3C8D2F" False
+                , Object 12 (Position -350 -200)  "#2F3C8D" False
            ] Nothing, Cmd.none )
 
 
@@ -144,7 +153,7 @@ view {objects,drag} =
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
       view' =
-        drawText "The objects are draggable" ::
+        -- drawText "The objects are draggable" :: -- ### zapped to see if that fixed mystery bug -- didn't
           (List.map (viewObject drag) objects)
   in
       svg
@@ -181,7 +190,7 @@ viewObject : Maybe Drag -> Object -> Svg Msg -- ### note, compiles just as well 
 viewObject drag object =
   let
     p = getPosition object drag -- ### I could never get this to pass compiler when assigning directly to (x1, y1)
-    radius = 40
+    radius = 20
   in
     g
       [
