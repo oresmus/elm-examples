@@ -24,11 +24,11 @@
 
 -- ### some imports might no longer be needed:
 
-import Html exposing (Html, div, Attribute, svg)
+import Html exposing (Html, div, Attribute)
 import Html.App as App
 import Html.Attributes exposing (style)
 
-import Svg exposing (Svg,circle,g)
+import Svg exposing (Svg,svg,circle,g) -- bugfix: import svg from here, not from Html! I wonder why it matters. ###
 import Svg.Events exposing (on)
 import Svg.Attributes exposing (x,y,fontSize,cx,cy,r,fill,stroke,strokeWidth,viewBox,width)
 
@@ -170,8 +170,8 @@ view {objects,drag} =
           , width "600px"
         ]
         [
-          circle [ cx "50", cy "50", r "45",  fill "#0B79CE" ] [] , -- even this is not visible, taken directly from clock example. hmm...??? 
-          g [] view' 
+          circle [ cx "50", cy "50", r "45",  fill "#0B79CE" ] [] -- even this is not visible, taken directly from clock example. hmm...??? 
+-- ,          g [] view' 
         ]
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
