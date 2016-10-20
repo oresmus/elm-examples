@@ -9223,6 +9223,7 @@ var _user$project$Main$onMouseDown = function (id) {
 };
 var _user$project$Main$viewObject = F2(
 	function (drag, object) {
+		var radius_small = 5;
 		var radius = 20;
 		var p = A2(_user$project$Main$getPosition, object, drag);
 		return A2(
@@ -9284,7 +9285,23 @@ var _user$project$Main$viewObject = F2(
 										_elm_lang$core$Basics_ops['++'],
 										' ',
 										_elm_lang$core$Basics$toString(p)))))
-						]))
+						])),
+					A2(
+					_elm_lang$svg$Svg$circle,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$svg$Svg_Attributes$cx(
+							_elm_lang$core$Basics$toString(p.x)),
+							_elm_lang$svg$Svg_Attributes$cy(
+							_elm_lang$core$Basics$toString(((p.y - radius) - radius_small) - 3)),
+							_elm_lang$svg$Svg_Attributes$r(
+							_elm_lang$core$Basics$toString(radius_small)),
+							_elm_lang$svg$Svg_Attributes$fill('rgba(0,0,0,0.25)'),
+							_elm_lang$svg$Svg_Attributes$stroke('black'),
+							_elm_lang$svg$Svg_Attributes$strokeWidth('1')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[]))
 				]));
 	});
 var _user$project$Main$view = function (_p14) {

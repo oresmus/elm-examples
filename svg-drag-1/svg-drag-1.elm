@@ -227,6 +227,7 @@ viewObject drag object =
   let
     p = getPosition object drag -- elm syntax note: I could never get this to pass compiler when assigning directly to (x1, y1)
     radius = 20
+    radius_small = 5
   in
     g
       [
@@ -242,8 +243,7 @@ viewObject drag object =
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
-          ]
-          []
+          ] []
       , Svg.text' 
           [ x (toString p.x), 
             y (toString p.y), 
@@ -257,6 +257,14 @@ viewObject drag object =
           [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
+      , circle -- smaller, above the main one
+          [ cx     (toString p.x)
+          , cy     (toString (p.y - radius - radius_small - 3))
+          , r      (toString radius_small)
+          , fill   "rgba(0,0,0,0.25)" -- transparent gray
+          , stroke "black"
+          , strokeWidth "1"
+          ] []
       ]
 
 getPosition : Object -> Maybe Drag -> Position
