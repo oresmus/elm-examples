@@ -153,7 +153,7 @@ view {objects,drag} =
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
       view' =
-          Svg.text "The objects are draggable" :: -- ### ok now?? (no longer using drawText)... no, no text is visible. ###
+          g [] [Svg.text "The objects are draggable"] :: -- ### ok now?? (no longer using drawText)... no, no text is visible. ###
           (List.map (viewObject drag) objects)
   in
       svg
@@ -170,8 +170,8 @@ view {objects,drag} =
           , width "600px"
         ]
         [
-          circle [ cx "50", cy "50", r "45",  fill "#0B79CE" ] [] -- now this is visible... remove it once the other stuff also is ### 
-        , g [] view' 
+--        circle [ cx "50", cy "50", r "45",  fill "#0B79CE" ] [] -- now this is visible... remove it once the other stuff also is ### 
+          g [] view' 
         ]
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
@@ -207,7 +207,7 @@ viewObject drag object =
           [ cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
-          , fill        "#0B79CE" -- ### replaces "rgba(255,0,0,0.1)", will that help?? nope.
+          , fill        object.colorstyle -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red"
    --       , stroke      "black" -- will removing these two lines help? ### nope
    --       , strokeWidth "2"
           ]

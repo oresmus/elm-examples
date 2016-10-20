@@ -9206,7 +9206,7 @@ var _user$project$Main$viewObject = F2(
 							_elm_lang$core$Basics$toString(p.y)),
 							_elm_lang$svg$Svg_Attributes$r(
 							_elm_lang$core$Basics$toString(radius)),
-							_elm_lang$svg$Svg_Attributes$fill('#0B79CE')
+							_elm_lang$svg$Svg_Attributes$fill(object.colorstyle)
 						]),
 					_elm_lang$core$Native_List.fromArray(
 						[]))
@@ -9216,7 +9216,14 @@ var _user$project$Main$view = function (_p13) {
 	var _p14 = _p13;
 	var view$ = A2(
 		_elm_lang$core$List_ops['::'],
-		_elm_lang$svg$Svg$text('The objects are draggable'),
+		A2(
+			_elm_lang$svg$Svg$g,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg$text('The objects are draggable')
+				])),
 		A2(
 			_elm_lang$core$List$map,
 			_user$project$Main$viewObject(_p14.drag),
@@ -9230,17 +9237,6 @@ var _user$project$Main$view = function (_p13) {
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
-				A2(
-				_elm_lang$svg$Svg$circle,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$svg$Svg_Attributes$cx('50'),
-						_elm_lang$svg$Svg_Attributes$cy('50'),
-						_elm_lang$svg$Svg_Attributes$r('45'),
-						_elm_lang$svg$Svg_Attributes$fill('#0B79CE')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[])),
 				A2(
 				_elm_lang$svg$Svg$g,
 				_elm_lang$core$Native_List.fromArray(
