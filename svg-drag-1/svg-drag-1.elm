@@ -153,7 +153,7 @@ view {objects,drag} =
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
       view' =
-          g [] [Svg.text "The objects are draggable"] :: -- ### ok now?? (no longer using drawText)... no, no text is visible. ###
+          drawLegendText "The objects are draggable." ::
           (List.map (viewObject drag) objects)
   in
       svg
@@ -175,10 +175,10 @@ view {objects,drag} =
         ]
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
--- but it had some compile errors, and looked a bit like nonsense, so i modified it, guessing...
-drawText : String -> Svg msg
-drawText string =
-  div
+-- but renamed from drawText, and modified to fix compile errors; works now; text is not selectable by browser.
+drawLegendText : String -> Svg msg
+drawLegendText string =
+  Svg.text'
     [ x         "20"
     , y         "20"
     , fontSize  "20"
@@ -217,9 +217,9 @@ viewObject drag object =
             y (toString p.y), 
             fontFamily "Verdana", 
             fontSize "12",
-            textAnchor "middle" -- this centers it horizontally (at least for a single char). I don't know how to center it vertically. ###
+            textAnchor "middle" -- this centers it horizontally. I don't know how to center it vertically. ###
            ] 
-          [Svg.text (toString object.id)]
+          [Svg.text ("obj " ++ (toString object.id))]
         -- see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       ]
