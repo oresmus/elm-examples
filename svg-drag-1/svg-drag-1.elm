@@ -169,7 +169,10 @@ view {objects,drag} =
           viewBox "0 0 600 600" -- ### will adding this help? nope... not even after commenting out style above, adding width below
           , width "600px"
         ]
-        [ g [] view' ]
+        [
+          circle [ cx "50", cy "50", r "45",  fill "#0B79CE" ] [] , -- even this is not visible, taken directly from clock example. hmm...??? 
+          g [] view' 
+        ]
 
 -- from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
 -- but it had some compile errors, and looked a bit like nonsense, so i modified it, guessing...
