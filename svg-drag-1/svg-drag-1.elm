@@ -164,7 +164,8 @@ view {objects,drag} =
           (List.map (viewObject drag) objects)
   in
       svg
-        [ onMouseDownWhole, 
+        [ 
+          -- onMouseDownWhole, ### disabled, to avoid interference from bug of running after circle mousedown
               -- ### BUGS in onMouseDownWhole:
               -- 2 expected bugs (offset, synced drag); 
               -- 2 unexpected bugs (also happens after circle mousedown, and only happens then -- nothing happens from click on plain bg).
