@@ -33,6 +33,9 @@
 --   This is not perfectly explainable either by elm code being frozen, or elm code running but virtual dom output being frozen.
 --     Another mystery-behavior-detail is that, after an object is erroneously dragged during mouseup, it can jump back to an earlier
 --   position upon the next mousedown (at least if it starts a new object-drag, not sure about otherwise).
+--     As later added below: -- 
+--   ### does always subscribing fix the freezing bug? not the basic bug, but maybe the sometimes-drags-with-mouse-up aspect of it. ### 
+--   That is, I changed the code to never unsubscribe to anything, and that may have fixed that up-drag part of the bug, but not the main part.
 --
 --     This should be tried in other browsers, but I didn't do that yet.
 --
@@ -169,11 +172,12 @@ getNewObject drag object =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  case model.drag of
-    Nothing ->
-      Sub.none
-
-    Just _ ->
+-- ### does always subscribing fix the freezing bug? not the basic bug, but maybe the sometimes-drags-with-mouse-up aspect of it. ###
+--  case model.drag of
+--    Nothing ->
+--      Sub.none
+--
+--    Just _ ->
       Sub.batch [ Mouse.moves DragAt, Mouse.ups DragEnd ]
 
 

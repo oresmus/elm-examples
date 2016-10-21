@@ -9197,17 +9197,12 @@ var _user$project$Main$DragAt = function (a) {
 	return {ctor: 'DragAt', _0: a};
 };
 var _user$project$Main$subscriptions = function (model) {
-	var _p13 = model.drag;
-	if (_p13.ctor === 'Nothing') {
-		return _elm_lang$core$Platform_Sub$none;
-	} else {
-		return _elm_lang$core$Platform_Sub$batch(
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$mouse$Mouse$moves(_user$project$Main$DragAt),
-					_elm_lang$mouse$Mouse$ups(_user$project$Main$DragEnd)
-				]));
-	}
+	return _elm_lang$core$Platform_Sub$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$mouse$Mouse$moves(_user$project$Main$DragAt),
+				_elm_lang$mouse$Mouse$ups(_user$project$Main$DragEnd)
+			]));
 };
 var _user$project$Main$DragStart = F2(
 	function (a, b) {
@@ -9306,15 +9301,15 @@ var _user$project$Main$viewObject = F2(
 						[]))
 				]));
 	});
-var _user$project$Main$view = function (_p14) {
-	var _p15 = _p14;
+var _user$project$Main$view = function (_p13) {
+	var _p14 = _p13;
 	var view$ = A2(
 		_elm_lang$core$List_ops['::'],
 		A2(_user$project$Main$drawLegendText, 'The objects are draggable', '(by their big circles only).'),
 		A2(
 			_elm_lang$core$List$map,
-			_user$project$Main$viewObject(_p15.drag),
-			_p15.objects));
+			_user$project$Main$viewObject(_p14.drag),
+			_p14.objects));
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		_elm_lang$core$Native_List.fromArray(
