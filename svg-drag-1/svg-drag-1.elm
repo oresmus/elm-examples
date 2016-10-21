@@ -31,9 +31,18 @@
 --   On the other hand, multiple drag-attempts during the freeze period do all get buffered up somehow, since upon waking,
 --   the object jumps much farther than any single drag attempt should have moved it.
 --   This is not perfectly explainable either by elm code being frozen, or elm code running but virtual dom output being frozen.
+--     Another mystery-behavior-detail is that, after an object is erroneously dragged during mouseup, it can jump back to an earlier
+--   position upon the next mousedown (at least if it starts a new object-drag, not sure about otherwise).
+--
 --     This should be tried in other browsers, but I didn't do that yet.
---   I also didn't try it running this code from a local file.
---   I did try it in the elm-lang mouse drag example (a single html div) (also from my github pages site), and no similar bug seems to occur.
+--
+--     In theory it could behave differently when run from a local file, 
+--   but a brief trial shows it can also happen then, and might behave the same.
+--   
+--     As for a minimal example demoing the bug, I didn't look for one, but I find that the bug does NOT appear
+--   in the elm-lang mouse drag example (a single html div) (also run from my github pages site).
+--   Same for the variant of that with 3 draggable objects (all html divs).
+--   The main difference between those and this one are: svg vs html, 12 vs 3 objects, and some details of drag code.
 
 
 -- certain lines are commented as "not fully understood", since I don't yet fully understand their code.
