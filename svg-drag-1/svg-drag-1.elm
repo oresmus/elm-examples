@@ -38,6 +38,8 @@
 --
 --     In theory it could behave differently when run from a local file, 
 --   but a brief trial shows it can also happen then, and might behave the same.
+--
+--     At least once, the bug did NOT happen after long inactivity if I tried it right after changing from some other tab in Safari.
 --   
 --     As for a minimal example demoing the bug, I didn't look for one, but I find that the bug does NOT appear
 --   in the elm-lang mouse drag example (a single html div) (also run from my github pages site).
