@@ -12,6 +12,7 @@
 -- + use svg instead of html
 --
 -- possible future mods: ###
+-- - add mouse hover properties
 -- - drag by setting svg transform attribute
 -- - use optims of virtual-dom diff speed (keyed, lazy)
 -- - more ###
@@ -32,7 +33,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height)
+import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height,pointerEvents)
 
 import Json.Decode as Json exposing ((:=))
 import Mouse exposing (Position)
@@ -115,7 +116,7 @@ updateHelp msg ({objects, drag} as model) =
 
     DragStartWhole xy ->
       Model 
-          (objects ++ [ (Object 13 xy "#3C8D2F" True) ]) -- ### bug: all new objects have same id; I think that's ok but they'll drag in sync ###
+          (objects ++ [ (Object 13 xy "#3C8D2F" True) ]) -- ### bug: all new objects have same id; this means they'll drag in sync ###
           (Just (Drag xy xy))
 
 startdrag : ObjId -> Bool -> List Object -> List Object
@@ -211,7 +212,8 @@ margin = 8
 drawLegendText : String -> String -> Svg msg
 drawLegendText line1 line2 =
   Svg.text'
-    [ x         "20"
+    [ pointerEvents "none" -- prevents typing cursor (and mousedown-capture, though this is behind all other objects so that doesn't matter)
+    , x         "20"
     , y         "20"
     , fontSize  "20"
     , style
@@ -243,8 +245,9 @@ viewObject drag object =
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
           ] []
-      , Svg.text' -- ### BUG: has typing cursor (though not selectable), and can block mousedown for other objs (depending on obj order).
-          [ x (toString p.x), 
+      , Svg.text'
+          [ pointerEvents "none" -- prevents blocking mousedown or changing to typing cursor
+          , x (toString p.x), 
             y (toString p.y), 
             fontFamily "Verdana", 
             fontSize "12",
@@ -256,10 +259,9 @@ viewObject drag object =
           [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
-      , circle -- smaller, above the main circle. 
-        -- ### BUG: blocks mousedown meant for other objects (visually behind it). 
-        -- Possible fixes: some svg feature, or use z order as kluge.
-          [ cx     (toString p.x)
+      , circle -- smaller, above the main circle.
+          [ pointerEvents "none" -- prevents this object blocking mousedown for objects visually behind it
+          , cx     (toString p.x)
           , cy     (toString (p.y - radius - radius_small - 3))
           , r      (toString radius_small)
           , fill   "rgba(0,0,0,0.25)" -- transparent gray
