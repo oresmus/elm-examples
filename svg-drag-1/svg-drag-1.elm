@@ -19,6 +19,23 @@
 --
 -- - ultimately it should grow into some kind of mouse-controlled "drawing program".
 
+-- ### KNOWN BUG (mystery):
+-- - in Safari 10.0 on Mac OS 10.10.5, running via github pages, 
+--   some but perhaps not all parts of the elm-coded js code can "go to sleep" (for 5-30 seconds)
+--   if there is no user activity for a minute or two (or longer). 
+--   The main symptom is that the display "freezes", except for mouse pointer and cursor actions -- the user can try to drag an object,
+--   and the mouse pointer and cursor work correctly, but the object (an svg circle with "decorations") doesn't move. 
+--   But after waiting 5-30 seconds (depending on history), the object then suddenly moves to the right place.
+--     The cause must not be quite as simple as the mouse events being buffered up until the elm code runs again --
+--   sometimes the object is then still being dragged (as if it didn't notice the mouseup event).
+--   On the other hand, multiple drag-attempts during the freeze period do all get buffered up somehow, since upon waking,
+--   the object jumps much farther than any single drag attempt should have moved it.
+--   This is not perfectly explainable either by elm code being frozen, or elm code running but virtual dom output being frozen.
+--     This should be tried in other browsers, but I didn't do that yet.
+--   I also didn't try it running this code from a local file.
+--   I did try it in the elm-lang mouse drag example (a single html div) (also from my github pages site), and no similar bug seems to occur.
+
+
 -- certain lines are commented as "not fully understood", since I don't yet fully understand their code.
 -- warning: I use "object" as a variable name, though there is also Html.object (which it conflicted with, before I removed implicit imports).
 
