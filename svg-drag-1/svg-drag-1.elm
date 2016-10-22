@@ -5,9 +5,7 @@
 -- warning: I use "object" as a variable name, though there is also Html.object (which it conflicted with, before I removed implicit imports).
 
 
--- ### some imports might no longer be needed:
-
-import Html exposing (Html, div, Attribute)
+import Html exposing (Html,div,Attribute)
 import Html.App as App
 import Html.Attributes exposing (style)
 
@@ -15,7 +13,7 @@ import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
 import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height,pointerEvents)
 
-import Json.Decode as Json exposing ((:=))
+import Json.Decode as Json
 import Mouse exposing (Position)
 
 
