@@ -1,0 +1,20 @@
+NOTES.txt
+
+needed to compile, when in a fresh directory:
+% elm-package install elm-lang/mouse
+% elm-package install elm-lang/svg
+% elm-make *.elm
+
+to remake index.html, just run % elm-make *.elm [assuming *.elm matches only this file]
+
+this is modified from the prior example html-drag-2, in several ways:
+
++ use svg instead of html
+
+possible future mods: ###
+- add mouse hover properties
+- drag by setting svg transform attribute
+- use optims of virtual-dom diff speed (keyed, lazy)
+- more ###
+
+- ultimately it should grow into some kind of mouse-controlled "drawing program".

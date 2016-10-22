@@ -1,0 +1,38 @@
+BUGS.txt
+
+- in Safari 10.0 on Mac OS 10.10.5, running via github pages, 
+  some but perhaps not all parts of the elm-coded js code can "go to sleep" (for 5-30 seconds)
+  if there is no user activity for a minute or two (or longer). 
+  The main symptom is that the display "freezes", except for mouse pointer and cursor actions -- the user can try to drag an object,
+  and the mouse pointer and cursor work correctly, but the object (an svg circle with "decorations") doesn't move. 
+  But after waiting 5-30 seconds (depending on history), the object then suddenly moves to the right place.
+
+    The cause must not be quite as simple as the mouse events being buffered up until the elm code runs again --
+  sometimes the object is then still being dragged (as if it didn't notice the mouseup event).
+  On the other hand, multiple drag-attempts during the freeze period do all get buffered up somehow, since upon waking,
+  the object jumps much farther than any single drag attempt should have moved it.
+  This is not perfectly explainable either by elm code being frozen, or elm code running but virtual dom output being frozen.
+
+    Another mystery-behavior-detail is that, after an object is erroneously dragged during mouseup, it can jump back to an earlier
+  position upon the next mousedown (at least if it starts a new object-drag, not sure about otherwise).
+
+    As later added below: -- 
+  ### does always subscribing fix the freezing bug? not the basic bug, but maybe the sometimes-drags-with-mouse-up aspect of it. ### 
+  That is, I changed the code to never unsubscribe to anything, and that may have fixed that up-drag part of the bug, but not the main part.
+
+    This should be tried in other browsers... in Chrome (from github pages), it doesn't seem to happen!
+
+    In theory it could behave differently when run from a local file, 
+  but a brief trial shows it can also happen then, and might behave the same.
+
+    At least once, the bug did NOT happen after long inactivity if I tried it right after changing from some other tab in Safari.
+  
+    As for a minimal example demoing the bug, I didn't look for one, but I find that the bug does NOT appear
+  in the elm-lang mouse drag example (a single html div) (also run from my github pages site).
+  Same for the variant of that with 3 draggable objects (all html divs).
+  The main difference between those and this one are: svg vs html, 12 vs 3 objects, and some details of drag code.
+
+
+- other known bugs (also in original code):
+  - no provision is made for dragging out of range, scrolling, etc. I don't know whether it works properly in all such cases.
+
