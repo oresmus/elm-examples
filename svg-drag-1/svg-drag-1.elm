@@ -37,7 +37,7 @@
 --   ### does always subscribing fix the freezing bug? not the basic bug, but maybe the sometimes-drags-with-mouse-up aspect of it. ### 
 --   That is, I changed the code to never unsubscribe to anything, and that may have fixed that up-drag part of the bug, but not the main part.
 --
---     This should be tried in other browsers, but I didn't do that yet.
+--     This should be tried in other browsers... in Chrome (from github pages), it doesn't seem to happen!
 --
 --     In theory it could behave differently when run from a local file, 
 --   but a brief trial shows it can also happen then, and might behave the same.
