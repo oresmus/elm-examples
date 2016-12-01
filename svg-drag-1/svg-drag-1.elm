@@ -1,9 +1,15 @@
 -- elm-examples/svg-drag-1/svg-drag-1.elm
--- see also NOTES.txt and BUGS.txt
+-- see also README.txt, NOTES.txt, BUGS.txt
+-- originally written for Elm 0.17 ### revise comment when upgraded 
 
 -- certain lines are commented as "not fully understood", since I don't yet fully understand their code.
 -- warning: I use "object" as a variable name, though there is also Html.object (which it conflicted with, before I removed implicit imports).
 
+-- ISSUES FOR UPGRADING ELM VERSION TO 0.18:
+-- - a local variable view' will need to be renamed.
+-- - the use of Svg.text' will need revision to work with however that was renamed in the Svg module.
+--   - it was renamed to Svg.text_, according to http://package.elm-lang.org/packages/elm-lang/svg/2.0.0/Svg
+-- Maybe the automatic upgrader will fix these itself? I could try it, except it might reformat in ways I won't like. ###
 
 import Html exposing (Html,div,Attribute)
 import Html.App as App
