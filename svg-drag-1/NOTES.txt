@@ -15,6 +15,13 @@ possible future mods: ###
 - add mouse hover properties
 - drag by setting svg transform attribute
 - use optims of virtual-dom diff speed (keyed, lazy)
+ - perhaps checkbox-enabled, for testing their effect
 - more ###
 
 - ultimately it should grow into some kind of mouse-controlled "drawing program".
+  - with different drag behaviors on different objects, eg dividers
+
+SHORT TERM TODO:
+- upgrade to Elm 0.18 -- might be enough to rename var' to var_ and recompile from scratch
+  - for details, see code comments
+- copy to new example folder for adding fancier things
