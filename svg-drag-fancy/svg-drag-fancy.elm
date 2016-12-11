@@ -239,7 +239,8 @@ viewObject drag object =
         OT_Classic _ -> view_OT_Classic object.id pos object.objecttype
         OT_Square _ -> view_OT_Square object.id pos object.objecttype
 
-view_OT_Classic : ObjId -> Position -> ObjectType -> Svg Msg -- ### should use more limited case of ObjectType!!!
+view_OT_Classic : ObjId -> Position -> ObjectType -> Svg Msg 
+-- ### ISSUE: OT_Classic is not a subtype of ObjectType, since it's not a type! How do I change type sig to allow only that case?
 view_OT_Classic id pos objecttype =
   let
     p = pos
