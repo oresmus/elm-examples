@@ -20,22 +20,11 @@ this is modified from the prior example html-drag-2, in several ways:
 
 + use svg instead of html
 
-possible future mods: ###
-- add mouse hover properties
-- drag by setting svg transform attribute
-- use optims of virtual-dom diff speed (keyed, lazy)
- - perhaps checkbox-enabled, for testing their effect
-- more ###
-
-- ultimately it should grow into some kind of mouse-controlled "drawing program".
-  - with different drag behaviors on different objects, eg dividers
-
-TODO:
-- copy to new example folder for adding fancier things (like the ones described above)
+possible future mods: see next example (that comes from this one), svg-drag-fancy
 
 ===
 
--- ISSUES FOR UPGRADING ELM VERSION TO 0.18:
+-- ISSUES THAT CAME UP WHILE UPGRADING ELM VERSION TO 0.18:
 -- + a local variable view' will need to be renamed.
 -- + the use of Svg.text' will need revision to work with however that was renamed in the Svg module.
 --   + it was renamed to Svg.text_, according to http://package.elm-lang.org/packages/elm-lang/svg/2.0.0/Svg

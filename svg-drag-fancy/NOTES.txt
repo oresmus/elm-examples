@@ -1,0 +1,16 @@
+NOTES.txt
+
+For general notes (eg make/upgrade issues) see ../svg-drag-1/NOTES.txt.
+
+original Elm example this came from: http://elm-lang.org/examples/drag
+
+The plan is to gradually add more features to this same example -- 
+no attempt to "keep it simple", unlike all prior examples.
+
+possible mods, relative to the prior example svg-drag-1:
+- add mouse hover properties
+- drag by setting svg transform attribute
+- use optims of virtual-dom diff speed (keyed, lazy)
+ - perhaps checkbox-enabled, for testing their effect
+- add more kinds of objects, some with different drag behaviors (eg dividers)
+- ultimately it should grow into some kind of mouse-controlled "drawing program".
