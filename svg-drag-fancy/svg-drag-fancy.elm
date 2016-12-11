@@ -41,6 +41,7 @@ type alias Object =
 type alias Model =
     { objects : List Object
     , drag : Maybe Drag
+    , nextid : ObjId -- ### use in a helper func in place of 13, then in place of hardcoded ids in init
     }
 
 type alias Drag =
@@ -63,7 +64,7 @@ init = ( Model [
                 , Object 10 (Position  -50 -200)  (OT_Square 20) False
                 , Object 11 (Position -200 -200)  (OT_Classic "#3C8D2F") False
                 , Object 12 (Position -350 -200)  (OT_Square 25) False
-           ] Nothing, Cmd.none )
+           ] Nothing 13, Cmd.none )
 
 
 -- UPDATE
@@ -82,21 +83,22 @@ update msg model =
 
 
 updateHelp : Msg -> Model -> Model
-updateHelp msg ({objects, drag} as model) =
+updateHelp msg ({objects, drag, nextid} as model) =
   case msg of
     DragStart id xy ->
-      Model (startdrag id True objects) (Just (Drag xy xy))
+      Model (startdrag id True objects) (Just (Drag xy xy)) nextid
 
     DragAt xy ->
-      Model objects (Maybe.map (\{start} -> Drag start xy) drag) -- not fully understood
+      Model objects (Maybe.map (\{start} -> Drag start xy) drag) nextid -- not fully understood
 
     DragEnd _ ->
-      Model (getNewObjects model) Nothing
+      Model (getNewObjects model) Nothing nextid
 
     DragStartWhole xy ->
       Model 
           (objects ++ [ (Object 13 xy (OT_Classic "#3C8D2F") True) ]) -- ### bug: all new objects have same id; this means they'll drag in sync ###
           (Just (Drag xy xy))
+          nextid
 
 startdrag : ObjId -> Bool -> List Object -> List Object
 startdrag id on objects =

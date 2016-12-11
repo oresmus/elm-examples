@@ -9379,9 +9379,9 @@ var _user$project$Main$Object = F4(
 	function (a, b, c, d) {
 		return {id: a, position: b, objecttype: c, dragging: d};
 	});
-var _user$project$Main$Model = F2(
-	function (a, b) {
-		return {objects: a, drag: b};
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {objects: a, drag: b, nextid: c};
 	});
 var _user$project$Main$Drag = F2(
 	function (a, b) {
@@ -9395,7 +9395,7 @@ var _user$project$Main$OT_Classic = function (a) {
 };
 var _user$project$Main$init = {
 	ctor: '_Tuple2',
-	_0: A2(
+	_0: A3(
 		_user$project$Main$Model,
 		{
 			ctor: '::',
@@ -9506,45 +9506,50 @@ var _user$project$Main$init = {
 				}
 			}
 		},
-		_elm_lang$core$Maybe$Nothing),
+		_elm_lang$core$Maybe$Nothing,
+		13),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _user$project$Main$updateHelp = F2(
 	function (msg, _p5) {
 		var _p6 = _p5;
-		var _p12 = _p6.objects;
+		var _p13 = _p6.objects;
+		var _p12 = _p6.nextid;
 		var _p7 = msg;
 		switch (_p7.ctor) {
 			case 'DragStart':
 				var _p8 = _p7._1;
-				return A2(
+				return A3(
 					_user$project$Main$Model,
-					A3(_user$project$Main$startdrag, _p7._0, true, _p12),
+					A3(_user$project$Main$startdrag, _p7._0, true, _p13),
 					_elm_lang$core$Maybe$Just(
-						A2(_user$project$Main$Drag, _p8, _p8)));
+						A2(_user$project$Main$Drag, _p8, _p8)),
+					_p12);
 			case 'DragAt':
-				return A2(
+				return A3(
 					_user$project$Main$Model,
-					_p12,
+					_p13,
 					A2(
 						_elm_lang$core$Maybe$map,
 						function (_p9) {
 							var _p10 = _p9;
 							return A2(_user$project$Main$Drag, _p10.start, _p7._0);
 						},
-						_p6.drag));
+						_p6.drag),
+					_p12);
 			case 'DragEnd':
-				return A2(
+				return A3(
 					_user$project$Main$Model,
 					_user$project$Main$getNewObjects(_p6),
-					_elm_lang$core$Maybe$Nothing);
+					_elm_lang$core$Maybe$Nothing,
+					_p12);
 			default:
 				var _p11 = _p7._0;
-				return A2(
+				return A3(
 					_user$project$Main$Model,
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						_p12,
+						_p13,
 						{
 							ctor: '::',
 							_0: A4(
@@ -9556,7 +9561,8 @@ var _user$project$Main$updateHelp = F2(
 							_1: {ctor: '[]'}
 						}),
 					_elm_lang$core$Maybe$Just(
-						A2(_user$project$Main$Drag, _p11, _p11)));
+						A2(_user$project$Main$Drag, _p11, _p11)),
+					_p12);
 		}
 	});
 var _user$project$Main$update = F2(
@@ -9872,22 +9878,22 @@ var _user$project$Main$view_OT_Square = F2(
 var _user$project$Main$viewObject = F2(
 	function (drag, object) {
 		var pos = A2(_user$project$Main$getPosition, object, drag);
-		var _p13 = object.objecttype;
-		if (_p13.ctor === 'OT_Classic') {
+		var _p14 = object.objecttype;
+		if (_p14.ctor === 'OT_Classic') {
 			return A2(_user$project$Main$view_OT_Classic, pos, object);
 		} else {
 			return A2(_user$project$Main$view_OT_Square, pos, object);
 		}
 	});
-var _user$project$Main$view = function (_p14) {
-	var _p15 = _p14;
+var _user$project$Main$view = function (_p15) {
+	var _p16 = _p15;
 	var view_ = {
 		ctor: '::',
 		_0: A2(_user$project$Main$drawLegendText, 'The objects are draggable', '(by their big circles only).'),
 		_1: A2(
 			_elm_lang$core$List$map,
-			_user$project$Main$viewObject(_p15.drag),
-			_p15.objects)
+			_user$project$Main$viewObject(_p16.drag),
+			_p16.objects)
 	};
 	return A2(
 		_elm_lang$svg$Svg$svg,
