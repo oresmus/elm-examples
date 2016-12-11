@@ -1,18 +1,20 @@
 -- elm-examples/svg-drag-1/svg-drag-1.elm
 -- see also README.txt, NOTES.txt, BUGS.txt
--- originally written for Elm 0.17 ### revise comment when upgraded 
+-- originally written for Elm 0.17; now compiles in 0.18 (but not yet retested)
 
 -- certain lines are commented as "not fully understood", since I don't yet fully understand their code.
 -- warning: I use "object" as a variable name, though there is also Html.object (which it conflicted with, before I removed implicit imports).
 
 -- ISSUES FOR UPGRADING ELM VERSION TO 0.18:
--- - a local variable view' will need to be renamed.
--- - the use of Svg.text' will need revision to work with however that was renamed in the Svg module.
---   - it was renamed to Svg.text_, according to http://package.elm-lang.org/packages/elm-lang/svg/2.0.0/Svg
--- Maybe the automatic upgrader will fix these itself? I could try it, except it might reformat in ways I won't like. ###
+-- + a local variable view' will need to be renamed.
+-- + the use of Svg.text' will need revision to work with however that was renamed in the Svg module.
+--   + it was renamed to Svg.text_, according to http://package.elm-lang.org/packages/elm-lang/svg/2.0.0/Svg
+-- Maybe the automatic upgrader will fix these itself? I could try it, except it might reformat in ways I won't like.
+-- + So for now I am just doing those changes manually.
+-- Discovered by experiment or by looking at http://elm-lang.org/examples/drag current state (maybe in upgrade doc too?):
+-- + remove Html.App, just get program from Html not from App
 
 import Html exposing (Html,div,Attribute)
-import Html.App as App
 import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
@@ -24,7 +26,7 @@ import Mouse exposing (Position)
 
 
 main =
-  App.program
+  Html.program
     { init = init
     , view = view
     , update = update
@@ -145,7 +147,7 @@ view : Model -> Html Msg
 view {objects,drag} = 
   -- modified from https://gist.github.com/TheSeamau5/8847c0e8781a3e284d82
   let
-      view' =
+      view_ =
           drawLegendText "The objects are draggable" "(by their big circles only)." ::
           (List.map (viewObject drag) objects)
   in
@@ -186,7 +188,7 @@ view {objects,drag} =
           , height "600px"
         ]
         [
-          g [] view' 
+          g [] view_ 
         ]
 
 margin : Int
@@ -196,7 +198,7 @@ margin = 8
 -- (this could be enhanced to split a single arg at newlines, or to take a list of lines)
 drawLegendText : String -> String -> Svg msg
 drawLegendText line1 line2 =
-  Svg.text'
+  Svg.text_
     [ pointerEvents "none" -- prevents typing cursor (and mousedown-capture, though this is behind all other objects so that doesn't matter)
     , x         "20"
     , y         "20"
@@ -230,7 +232,7 @@ viewObject drag object =
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
           ] []
-      , Svg.text'
+      , Svg.text_
           [ pointerEvents "none" -- prevents blocking mousedown or changing to typing cursor
           , x (toString p.x), 
             y (toString p.y), 
