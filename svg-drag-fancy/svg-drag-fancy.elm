@@ -8,9 +8,9 @@
 import Html exposing (Html,div,Attribute)
 import Html.Attributes exposing (style)
 
-import Svg exposing (Svg,svg,circle,g)
+import Svg exposing (Svg,svg,circle,g,polygon)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height,pointerEvents,transform)
+import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height,pointerEvents,transform,points)
 
 import Json.Decode as Json
 import Mouse exposing (Position)
@@ -67,9 +67,9 @@ init = ( Model [] Nothing 1
        , Cmd.none )
 
 
--- add a new object to the model (which is not being dragged) 
+-- add a new object to the model (with the new object not being dragged) 
 
--- version which also returns new object id
+-- version which returns modified model and new object id
 addNewObject_retID : Position -> ObjectType -> Model -> ( Model , ObjId )
 addNewObject_retID pos objtype ({objects, drag, nextid} as model) =
     ( Model
@@ -79,7 +79,7 @@ addNewObject_retID pos objtype ({objects, drag, nextid} as model) =
       nextid
     )
 
--- version which only returns model
+-- version which only returns modified model
 addNewObject : Position -> ObjectType -> Model -> Model
 addNewObject pos objtype model =
     let 
@@ -303,13 +303,16 @@ view_OT_Square id pos objecttype =
     radius_small = 5
   in
       -- ### not yet an actual square; doesn't yet use objecttype
-      [ circle
+      [ 
+        polygon
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
-          , r           (toString radius)
+--          , r           (toString radius)
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
-          ] []
+          , points "60,20 100,40 100,80 60,100 20,80 20,40" -- ### FIX
+          ] 
+          []
       , Svg.text_
           [ pointerEvents "none" -- prevents blocking mousedown or changing to typing cursor
 --          , x "0"
