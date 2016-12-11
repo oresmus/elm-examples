@@ -70,8 +70,8 @@ init = ( Model [] Nothing 1
 -- add a new object to the model (which is not being dragged) 
 
 -- version which also returns new object id
-addNewObject_retID : Model -> Position -> ObjectType -> ( Model , ObjId )
-addNewObject_retID ({objects, drag, nextid} as model) pos objtype =
+addNewObject_retID : Position -> ObjectType -> Model -> ( Model , ObjId )
+addNewObject_retID pos objtype ({objects, drag, nextid} as model) =
     ( Model
         (objects ++ [ (Object nextid pos objtype False) ])
         drag
@@ -80,10 +80,10 @@ addNewObject_retID ({objects, drag, nextid} as model) pos objtype =
     )
 
 -- version which only returns model
-addNewObject : Model -> Position -> ObjectType -> Model
-addNewObject model pos objtype =
+addNewObject : Position -> ObjectType -> Model -> Model
+addNewObject pos objtype model =
     let 
-        (newmodel, newid) = addNewObject_retID model pos objtype -- [this worked once i made sure the varnames were not being reused ###]
+        (newmodel, newid) = addNewObject_retID pos objtype model -- [this worked once i made sure the varnames were not being reused ###]
     in
         newmodel
 
@@ -119,7 +119,7 @@ updateHelp msg ({objects, drag, nextid} as model) =
       let
           pos = xy
           objtype = (OT_Classic "#3C8D2F")
-          (newmodel, newid) = addNewObject_retID model pos objtype
+          (newmodel, newid) = addNewObject_retID pos objtype model
       in
           updateHelp (DragStart newid xy) newmodel
 

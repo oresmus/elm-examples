@@ -9384,7 +9384,7 @@ var _user$project$Main$Model = F3(
 		return {objects: a, drag: b, nextid: c};
 	});
 var _user$project$Main$addNewObject_retID = F3(
-	function (_p5, pos, objtype) {
+	function (pos, objtype, _p5) {
 		var _p6 = _p5;
 		var _p7 = _p6.nextid;
 		return {
@@ -9405,8 +9405,8 @@ var _user$project$Main$addNewObject_retID = F3(
 		};
 	});
 var _user$project$Main$addNewObject = F3(
-	function (model, pos, objtype) {
-		var _p8 = A3(_user$project$Main$addNewObject_retID, model, pos, objtype);
+	function (pos, objtype, model) {
+		var _p8 = A3(_user$project$Main$addNewObject_retID, pos, objtype, model);
 		var newmodel = _p8._0;
 		var newid = _p8._1;
 		return newmodel;
@@ -9424,118 +9424,58 @@ var _user$project$Main$OT_Classic = function (a) {
 var _user$project$Main$init = {
 	ctor: '_Tuple2',
 	_0: A3(
-		_user$project$Main$Model,
-		{
-			ctor: '::',
-			_0: A4(
-				_user$project$Main$Object,
-				1,
-				A2(_elm_lang$mouse$Mouse$Position, 50, 200),
-				_user$project$Main$OT_Classic('#8D2F3C'),
-				false),
-			_1: {
-				ctor: '::',
-				_0: A4(
-					_user$project$Main$Object,
-					2,
-					A2(_elm_lang$mouse$Mouse$Position, 200, 200),
-					_user$project$Main$OT_Square(10),
-					false),
-				_1: {
-					ctor: '::',
-					_0: A4(
-						_user$project$Main$Object,
-						3,
-						A2(_elm_lang$mouse$Mouse$Position, 350, 200),
-						_user$project$Main$OT_Classic('#2F3C8D'),
-						false),
-					_1: {
-						ctor: '::',
-						_0: A4(
-							_user$project$Main$Object,
-							4,
-							A2(_elm_lang$mouse$Mouse$Position, -50, 200),
-							_user$project$Main$OT_Square(20),
-							false),
-						_1: {
-							ctor: '::',
-							_0: A4(
-								_user$project$Main$Object,
-								5,
-								A2(_elm_lang$mouse$Mouse$Position, -200, 200),
-								_user$project$Main$OT_Classic('#3C8D2F'),
-								false),
-							_1: {
-								ctor: '::',
-								_0: A4(
-									_user$project$Main$Object,
-									6,
-									A2(_elm_lang$mouse$Mouse$Position, -350, 200),
-									_user$project$Main$OT_Square(10),
-									false),
-								_1: {
-									ctor: '::',
-									_0: A4(
-										_user$project$Main$Object,
-										7,
-										A2(_elm_lang$mouse$Mouse$Position, 50, -200),
-										_user$project$Main$OT_Classic('#8D2F3C'),
-										false),
-									_1: {
-										ctor: '::',
-										_0: A4(
-											_user$project$Main$Object,
-											8,
-											A2(_elm_lang$mouse$Mouse$Position, 200, -200),
-											_user$project$Main$OT_Square(15),
-											false),
-										_1: {
-											ctor: '::',
-											_0: A4(
-												_user$project$Main$Object,
-												9,
-												A2(_elm_lang$mouse$Mouse$Position, 350, -200),
-												_user$project$Main$OT_Classic('#2F3C8D'),
-												false),
-											_1: {
-												ctor: '::',
-												_0: A4(
-													_user$project$Main$Object,
-													10,
-													A2(_elm_lang$mouse$Mouse$Position, -50, -200),
-													_user$project$Main$OT_Square(20),
-													false),
-												_1: {
-													ctor: '::',
-													_0: A4(
-														_user$project$Main$Object,
-														11,
-														A2(_elm_lang$mouse$Mouse$Position, -200, -200),
-														_user$project$Main$OT_Classic('#3C8D2F'),
-														false),
-													_1: {
-														ctor: '::',
-														_0: A4(
-															_user$project$Main$Object,
-															12,
-															A2(_elm_lang$mouse$Mouse$Position, -350, -200),
-															_user$project$Main$OT_Square(25),
-															false),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		_elm_lang$core$Maybe$Nothing,
-		13),
+		_user$project$Main$addNewObject,
+		A2(_elm_lang$mouse$Mouse$Position, -350, -200),
+		_user$project$Main$OT_Square(25),
+		A3(
+			_user$project$Main$addNewObject,
+			A2(_elm_lang$mouse$Mouse$Position, -200, -200),
+			_user$project$Main$OT_Classic('#3C8D2F'),
+			A3(
+				_user$project$Main$addNewObject,
+				A2(_elm_lang$mouse$Mouse$Position, -50, -200),
+				_user$project$Main$OT_Square(20),
+				A3(
+					_user$project$Main$addNewObject,
+					A2(_elm_lang$mouse$Mouse$Position, 350, -200),
+					_user$project$Main$OT_Classic('#2F3C8D'),
+					A3(
+						_user$project$Main$addNewObject,
+						A2(_elm_lang$mouse$Mouse$Position, 200, -200),
+						_user$project$Main$OT_Square(15),
+						A3(
+							_user$project$Main$addNewObject,
+							A2(_elm_lang$mouse$Mouse$Position, 50, -200),
+							_user$project$Main$OT_Classic('#8D2F3C'),
+							A3(
+								_user$project$Main$addNewObject,
+								A2(_elm_lang$mouse$Mouse$Position, -350, 200),
+								_user$project$Main$OT_Square(10),
+								A3(
+									_user$project$Main$addNewObject,
+									A2(_elm_lang$mouse$Mouse$Position, -200, 200),
+									_user$project$Main$OT_Classic('#3C8D2F'),
+									A3(
+										_user$project$Main$addNewObject,
+										A2(_elm_lang$mouse$Mouse$Position, -50, 200),
+										_user$project$Main$OT_Square(20),
+										A3(
+											_user$project$Main$addNewObject,
+											A2(_elm_lang$mouse$Mouse$Position, 350, 200),
+											_user$project$Main$OT_Classic('#2F3C8D'),
+											A3(
+												_user$project$Main$addNewObject,
+												A2(_elm_lang$mouse$Mouse$Position, 200, 200),
+												_user$project$Main$OT_Square(10),
+												A3(
+													_user$project$Main$addNewObject,
+													A2(_elm_lang$mouse$Mouse$Position, 50, 200),
+													_user$project$Main$OT_Classic('#8D2F3C'),
+													A3(
+														_user$project$Main$Model,
+														{ctor: '[]'},
+														_elm_lang$core$Maybe$Nothing,
+														1))))))))))))),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _user$project$Main$DragStartWhole = function (a) {
@@ -9607,7 +9547,7 @@ var _user$project$Main$updateHelp = F2(
 					var _p16 = _p11._0;
 					var objtype = _user$project$Main$OT_Classic('#3C8D2F');
 					var pos = _p16;
-					var _p15 = A3(_user$project$Main$addNewObject_retID, _p17, pos, objtype);
+					var _p15 = A3(_user$project$Main$addNewObject_retID, pos, objtype, _p17);
 					var newmodel = _p15._0;
 					var newid = _p15._1;
 					var _v6 = A2(_user$project$Main$DragStart, newid, _p16),
