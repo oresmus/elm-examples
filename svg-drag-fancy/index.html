@@ -9538,69 +9538,6 @@ var _user$project$Main$init = {
 		13),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
-var _user$project$Main$updateHelp = F2(
-	function (msg, _p9) {
-		var _p10 = _p9;
-		var _p17 = _p10.objects;
-		var _p16 = _p10.nextid;
-		var _p11 = msg;
-		switch (_p11.ctor) {
-			case 'DragStart':
-				var _p12 = _p11._1;
-				return A3(
-					_user$project$Main$Model,
-					A3(_user$project$Main$startdrag, _p11._0, true, _p17),
-					_elm_lang$core$Maybe$Just(
-						A2(_user$project$Main$Drag, _p12, _p12)),
-					_p16);
-			case 'DragAt':
-				return A3(
-					_user$project$Main$Model,
-					_p17,
-					A2(
-						_elm_lang$core$Maybe$map,
-						function (_p13) {
-							var _p14 = _p13;
-							return A2(_user$project$Main$Drag, _p14.start, _p11._0);
-						},
-						_p10.drag),
-					_p16);
-			case 'DragEnd':
-				return A3(
-					_user$project$Main$Model,
-					_user$project$Main$getNewObjects(_p10),
-					_elm_lang$core$Maybe$Nothing,
-					_p16);
-			default:
-				var _p15 = _p11._0;
-				return A3(
-					_user$project$Main$Model,
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						_p17,
-						{
-							ctor: '::',
-							_0: A4(
-								_user$project$Main$Object,
-								13,
-								_p15,
-								_user$project$Main$OT_Classic('#3C8D2F'),
-								true),
-							_1: {ctor: '[]'}
-						}),
-					_elm_lang$core$Maybe$Just(
-						A2(_user$project$Main$Drag, _p15, _p15)),
-					_p16);
-		}
-	});
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		return {
-			ctor: '_Tuple2',
-			_0: A2(_user$project$Main$updateHelp, msg, model),
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
-	});
 var _user$project$Main$DragStartWhole = function (a) {
 	return {ctor: 'DragStartWhole', _0: a};
 };
@@ -9629,6 +9566,65 @@ var _user$project$Main$subscriptions = function (model) {
 var _user$project$Main$DragStart = F2(
 	function (a, b) {
 		return {ctor: 'DragStart', _0: a, _1: b};
+	});
+var _user$project$Main$updateHelp = F2(
+	function (msg, _p9) {
+		updateHelp:
+		while (true) {
+			var _p10 = _p9;
+			var _p19 = _p10.objects;
+			var _p18 = _p10.nextid;
+			var _p17 = _p10;
+			var _p11 = msg;
+			switch (_p11.ctor) {
+				case 'DragStart':
+					var _p12 = _p11._1;
+					return A3(
+						_user$project$Main$Model,
+						A3(_user$project$Main$startdrag, _p11._0, true, _p19),
+						_elm_lang$core$Maybe$Just(
+							A2(_user$project$Main$Drag, _p12, _p12)),
+						_p18);
+				case 'DragAt':
+					return A3(
+						_user$project$Main$Model,
+						_p19,
+						A2(
+							_elm_lang$core$Maybe$map,
+							function (_p13) {
+								var _p14 = _p13;
+								return A2(_user$project$Main$Drag, _p14.start, _p11._0);
+							},
+							_p10.drag),
+						_p18);
+				case 'DragEnd':
+					return A3(
+						_user$project$Main$Model,
+						_user$project$Main$getNewObjects(_p17),
+						_elm_lang$core$Maybe$Nothing,
+						_p18);
+				default:
+					var _p16 = _p11._0;
+					var objtype = _user$project$Main$OT_Classic('#3C8D2F');
+					var pos = _p16;
+					var _p15 = A3(_user$project$Main$addNewObject_retID, _p17, pos, objtype);
+					var newmodel = _p15._0;
+					var newid = _p15._1;
+					var _v6 = A2(_user$project$Main$DragStart, newid, _p16),
+						_v7 = newmodel;
+					msg = _v6;
+					_p9 = _v7;
+					continue updateHelp;
+			}
+		}
+	});
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		return {
+			ctor: '_Tuple2',
+			_0: A2(_user$project$Main$updateHelp, msg, model),
+			_1: _elm_lang$core$Platform_Cmd$none
+		};
 	});
 var _user$project$Main$onMouseDown = function (id) {
 	return A2(
@@ -9906,22 +9902,22 @@ var _user$project$Main$view_OT_Square = F2(
 var _user$project$Main$viewObject = F2(
 	function (drag, object) {
 		var pos = A2(_user$project$Main$getPosition, object, drag);
-		var _p18 = object.objecttype;
-		if (_p18.ctor === 'OT_Classic') {
+		var _p20 = object.objecttype;
+		if (_p20.ctor === 'OT_Classic') {
 			return A2(_user$project$Main$view_OT_Classic, pos, object);
 		} else {
 			return A2(_user$project$Main$view_OT_Square, pos, object);
 		}
 	});
-var _user$project$Main$view = function (_p19) {
-	var _p20 = _p19;
+var _user$project$Main$view = function (_p21) {
+	var _p22 = _p21;
 	var view_ = {
 		ctor: '::',
 		_0: A2(_user$project$Main$drawLegendText, 'The objects are draggable', '(by their big circles only).'),
 		_1: A2(
 			_elm_lang$core$List$map,
-			_user$project$Main$viewObject(_p20.drag),
-			_p20.objects)
+			_user$project$Main$viewObject(_p22.drag),
+			_p22.objects)
 	};
 	return A2(
 		_elm_lang$svg$Svg$svg,

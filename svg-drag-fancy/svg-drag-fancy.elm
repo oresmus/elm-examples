@@ -67,7 +67,7 @@ init = ( Model [
            ] Nothing 13, Cmd.none )
 
 
--- add a new object to the model (which is not being dragged) ### use to make init ### use in DragStartWhole
+-- add a new object to the model (which is not being dragged) ### also use to make init
 
 -- version which also returns new object id
 addNewObject_retID : Model -> Position -> ObjectType -> ( Model , ObjId )
@@ -116,11 +116,13 @@ updateHelp msg ({objects, drag, nextid} as model) =
       Model (getNewObjects model) Nothing nextid
 
     DragStartWhole xy ->
-      Model 
-          (objects ++ [ (Object 13 xy (OT_Classic "#3C8D2F") True) ]) -- ### bug: all new objects have same id; this means they'll drag in sync ###
--- ### TO FIX use addNewObject
-          (Just (Drag xy xy))
-          nextid
+      let
+          pos = xy
+          objtype = (OT_Classic "#3C8D2F")
+          (newmodel, newid) = addNewObject_retID model pos objtype
+      in
+          updateHelp (DragStart newid xy) newmodel
+
 
 startdrag : ObjId -> Bool -> List Object -> List Object
 startdrag id on objects =
