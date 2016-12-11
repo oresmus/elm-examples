@@ -292,7 +292,7 @@ view_OT_Classic id pos objecttype =
           ] []
       ]
 
-view_OT_Square : ObjId -> Position -> ObjectType -> Svg Msg -- ### should use more limited case of ObjectType!!!
+view_OT_Square : ObjId -> Position -> ObjectType -> Svg Msg -- ### same issue as sibfunc: should use a more limited case of ObjectType
 view_OT_Square id pos objecttype =
   let
     p = pos
