@@ -302,7 +302,7 @@ view_OT_Square id pos objecttype =
     radius = 20
     radius_small = 5
   in
-      -- ### not yet an actual square; doesn't yet use objecttype
+      -- ### doesn't yet use objecttype
       [ 
         polygon
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
@@ -310,7 +310,7 @@ view_OT_Square id pos objecttype =
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
-          , points "60,20 100,40 100,80 60,100 20,80 20,40" -- ### FIX
+          , points "20,20 20,-20 -20,-20 -20,20" -- ### generalize; didn't check path winding orientation (cw vs ccw)
           ] 
           []
       , Svg.text_
