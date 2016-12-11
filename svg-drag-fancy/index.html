@@ -9575,8 +9575,8 @@ var _user$project$Main$onMouseDown = function (id) {
 			_user$project$Main$DragStart(id),
 			_elm_lang$mouse$Mouse$position));
 };
-var _user$project$Main$view_OT_Classic = F2(
-	function (pos, object) {
+var _user$project$Main$view_OT_Classic = F3(
+	function (id, pos, objecttype) {
 		var radius_small = 5;
 		var radius = 20;
 		var p = pos;
@@ -9589,7 +9589,7 @@ var _user$project$Main$view_OT_Classic = F2(
 					_elm_lang$svg$Svg$circle,
 					{
 						ctor: '::',
-						_0: _user$project$Main$onMouseDown(object.id),
+						_0: _user$project$Main$onMouseDown(id),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$html$Html_Attributes$style(
@@ -9677,7 +9677,7 @@ var _user$project$Main$view_OT_Classic = F2(
 									'obj ',
 									A2(
 										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(object.id),
+										_elm_lang$core$Basics$toString(id),
 										A2(
 											_elm_lang$core$Basics_ops['++'],
 											' ',
@@ -9726,8 +9726,8 @@ var _user$project$Main$view_OT_Classic = F2(
 				}
 			});
 	});
-var _user$project$Main$view_OT_Square = F2(
-	function (pos, object) {
+var _user$project$Main$view_OT_Square = F3(
+	function (id, pos, objecttype) {
 		var radius_small = 5;
 		var radius = 20;
 		var p = pos;
@@ -9740,7 +9740,7 @@ var _user$project$Main$view_OT_Square = F2(
 					_elm_lang$svg$Svg$circle,
 					{
 						ctor: '::',
-						_0: _user$project$Main$onMouseDown(object.id),
+						_0: _user$project$Main$onMouseDown(id),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$html$Html_Attributes$style(
@@ -9828,7 +9828,7 @@ var _user$project$Main$view_OT_Square = F2(
 									'obj ',
 									A2(
 										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(object.id),
+										_elm_lang$core$Basics$toString(id),
 										A2(
 											_elm_lang$core$Basics_ops['++'],
 											' ',
@@ -9844,9 +9844,9 @@ var _user$project$Main$viewObject = F2(
 		var pos = A2(_user$project$Main$getPosition, object, drag);
 		var _p20 = object.objecttype;
 		if (_p20.ctor === 'OT_Classic') {
-			return A2(_user$project$Main$view_OT_Classic, pos, object);
+			return A3(_user$project$Main$view_OT_Classic, object.id, pos, object.objecttype);
 		} else {
-			return A2(_user$project$Main$view_OT_Square, pos, object);
+			return A3(_user$project$Main$view_OT_Square, object.id, pos, object.objecttype);
 		}
 	});
 var _user$project$Main$view = function (_p21) {

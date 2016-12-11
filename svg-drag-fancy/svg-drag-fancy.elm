@@ -34,7 +34,7 @@ type ObjectType = OT_Classic String | OT_Square Int -- to be extended ###
 type alias Object =
     { id : ObjId
     , position : Position
-    , objecttype : ObjectType -- replaces colorstyle -- not yet used ###
+    , objecttype : ObjectType
     , dragging : Bool
     }
 
@@ -236,11 +236,11 @@ viewObject drag object =
     pos = getPosition object drag 
   in
     case object.objecttype of
-        OT_Classic _ -> view_OT_Classic pos object
-        OT_Square _ -> view_OT_Square pos object
+        OT_Classic _ -> view_OT_Classic object.id pos object.objecttype
+        OT_Square _ -> view_OT_Square object.id pos object.objecttype
 
-view_OT_Classic : Position -> Object -> Svg Msg -- ### defect: we mean, but can't say, "Object whose objecttype is a OT_Classic". Should we factor??
-view_OT_Classic pos object =
+view_OT_Classic : ObjId -> Position -> ObjectType -> Svg Msg -- ### should use more limited case of ObjectType!!!
+view_OT_Classic id pos objecttype =
   let
     p = pos
         -- elm syntax note [from older version of this code]: I could never get this to pass compiler when assigning directly to (x1, y1)
@@ -249,12 +249,12 @@ view_OT_Classic pos object =
   in
     g
       [
-          -- onMouseDown object.id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
+          -- onMouseDown id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
           -- style [ "cursor" => "move" ]
        ]
-      -- ### doesn't yet use object.objecttype
+      -- ### doesn't yet use objecttype
       [ circle
-          [ onMouseDown object.id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
+          [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
           , cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
@@ -273,7 +273,7 @@ view_OT_Classic pos object =
               [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
 
           ] 
-          [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
+          [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString p) )]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       , circle -- smaller, above the main circle.
@@ -287,8 +287,8 @@ view_OT_Classic pos object =
           ] []
       ]
 
-view_OT_Square : Position -> Object -> Svg Msg
-view_OT_Square pos object =
+view_OT_Square : ObjId -> Position -> ObjectType -> Svg Msg -- ### should use more limited case of ObjectType!!!
+view_OT_Square id pos objecttype =
   let
     p = pos
     radius = 20
@@ -297,9 +297,9 @@ view_OT_Square pos object =
     g
       [
        ]
-      -- ### not yet an actual square; doesn't yet use object.objecttype
+      -- ### not yet an actual square; doesn't yet use objecttype
       [ circle
-          [ onMouseDown object.id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
+          [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
           , cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
@@ -318,7 +318,7 @@ view_OT_Square pos object =
               [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
 
           ] 
-          [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
+          [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString p) )]
       ]
 
 getPosition : Object -> Maybe Drag -> Position
