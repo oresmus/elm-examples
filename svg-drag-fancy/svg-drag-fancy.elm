@@ -252,10 +252,8 @@ view_OT_Classic id pos objecttype =
       [
           -- onMouseDown id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
           -- style [ "cursor" => "move" ],
-          -- transform "translate(1,1)" -- ### syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
-          -- ### want: 
+          -- transform "translate(1,1)" -- syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
           transform ("translate(" ++ (toString p.x) ++ "," ++ (toString p.y) ++ ")")
-          -- transform ("translate(" ++ "1" ++ "," ++ "1" ++ ")") -- works
        ]
       -- ### doesn't yet use objecttype
       [ circle
