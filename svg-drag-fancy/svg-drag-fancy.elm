@@ -233,13 +233,25 @@ drawLegendText line1 line2 =
 viewObject : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with output type Svg Msg or Html Msg 
 viewObject drag object =
   let
-    pos = getPosition object drag 
+    pos = getPosition object drag
   in
-    case object.objecttype of
-        OT_Classic _ -> view_OT_Classic object.id pos object.objecttype
-        OT_Square _ -> view_OT_Square object.id pos object.objecttype
+    g
+      [
+          -- onMouseDown id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
+          -- style [ "cursor" => "move" ],
+          -- transform "translate(1,1)" -- syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+          transform ("translate(" ++ (toString pos.x) ++ "," ++ (toString pos.y) ++ ")")
+       ]
+       (viewObjectAsSvgChildList object.id pos object.objecttype) -- note: uses pos only for debug output, not positioning
 
-view_OT_Classic : ObjId -> Position -> ObjectType -> Svg Msg 
+viewObjectAsSvgChildList : ObjId -> Position -> ObjectType -> List (Svg Msg)
+viewObjectAsSvgChildList id pos objecttype =
+    case objecttype of
+        OT_Classic _ -> view_OT_Classic id pos objecttype
+        OT_Square _ -> view_OT_Square id pos objecttype
+
+
+view_OT_Classic : ObjId -> Position -> ObjectType -> List (Svg Msg)
 -- ### ISSUE: OT_Classic is not a subtype of ObjectType, since it's not a type! How do I change type sig to allow only that case?
 view_OT_Classic id pos objecttype =
   let
@@ -248,13 +260,6 @@ view_OT_Classic id pos objecttype =
     radius = 20
     radius_small = 5
   in
-    g
-      [
-          -- onMouseDown id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
-          -- style [ "cursor" => "move" ],
-          -- transform "translate(1,1)" -- syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
-          transform ("translate(" ++ (toString p.x) ++ "," ++ (toString p.y) ++ ")")
-       ]
       -- ### doesn't yet use objecttype
       [ circle
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
@@ -290,17 +295,13 @@ view_OT_Classic id pos objecttype =
           ] []
       ]
 
-view_OT_Square : ObjId -> Position -> ObjectType -> Svg Msg -- ### same issue as sibfunc: should use a more limited case of ObjectType
+view_OT_Square : ObjId -> Position -> ObjectType -> List (Svg Msg) -- ### same issue as sibfunc: should use a more limited case of ObjectType
 view_OT_Square id pos objecttype =
   let
     p = pos
     radius = 20
     radius_small = 5
   in
-    g
-      [
-          transform ("translate(" ++ (toString p.x) ++ "," ++ (toString p.y) ++ ")")
-       ]
       -- ### not yet an actual square; doesn't yet use objecttype
       [ circle
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
@@ -324,6 +325,7 @@ view_OT_Square id pos objecttype =
           ] 
           [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString p) )]
       ]
+
 
 getPosition : Object -> Maybe Drag -> Position
 getPosition object drag =

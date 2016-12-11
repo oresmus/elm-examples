@@ -9580,62 +9580,81 @@ var _user$project$Main$view_OT_Classic = F3(
 		var radius_small = 5;
 		var radius = 20;
 		var p = pos;
-		return A2(
-			_elm_lang$svg$Svg$g,
-			{
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$transform(
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						'translate(',
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(p.x),
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								',',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(p.y),
-									')'))))),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$svg$Svg$circle,
-					{
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$svg$Svg$circle,
+				{
+					ctor: '::',
+					_0: _user$project$Main$onMouseDown(id),
+					_1: {
 						ctor: '::',
-						_0: _user$project$Main$onMouseDown(id),
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: A2(_user$project$Main_ops['=>'], 'cursor', 'move'),
+								_1: {ctor: '[]'}
+							}),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
-									ctor: '::',
-									_0: A2(_user$project$Main_ops['=>'], 'cursor', 'move'),
-									_1: {ctor: '[]'}
-								}),
+							_0: _elm_lang$svg$Svg_Attributes$cx('0'),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$cx('0'),
+								_0: _elm_lang$svg$Svg_Attributes$cy('0'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$cy('0'),
+									_0: _elm_lang$svg$Svg_Attributes$r(
+										_elm_lang$core$Basics$toString(radius)),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$r(
-											_elm_lang$core$Basics$toString(radius)),
+										_0: _elm_lang$svg$Svg_Attributes$fill('rgba(255,0,0,0)'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fill('rgba(255,0,0,0)'),
+											_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$strokeWidth('2'),
-													_1: {ctor: '[]'}
-												}
+												_0: _elm_lang$svg$Svg_Attributes$strokeWidth('2'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$text_,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$pointerEvents('none'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$x('0'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$y('0'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$fontFamily('Verdana'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fontSize('12'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$style(
+													{
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'},
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
 											}
 										}
 									}
@@ -9643,37 +9662,48 @@ var _user$project$Main$view_OT_Classic = F3(
 							}
 						}
 					},
-					{ctor: '[]'}),
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg$text(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'obj ',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(id),
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										' ',
+										_elm_lang$core$Basics$toString(p))))),
+						_1: {ctor: '[]'}
+					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$svg$Svg$text_,
+						_elm_lang$svg$Svg$circle,
 						{
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$pointerEvents('none'),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$x('0'),
+								_0: _elm_lang$svg$Svg_Attributes$cx('0'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$y('0'),
+									_0: _elm_lang$svg$Svg_Attributes$cy(
+										_elm_lang$core$Basics$toString(((0 - radius) - radius_small) - 3)),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$fontFamily('Verdana'),
+										_0: _elm_lang$svg$Svg_Attributes$r(
+											_elm_lang$core$Basics$toString(radius_small)),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fontSize('12'),
+											_0: _elm_lang$svg$Svg_Attributes$fill('rgba(0,0,0,0.25)'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
+												_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$style(
-														{
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'},
-															_1: {ctor: '[]'}
-														}),
+													_0: _elm_lang$svg$Svg_Attributes$strokeWidth('1'),
 													_1: {ctor: '[]'}
 												}
 											}
@@ -9682,67 +9712,130 @@ var _user$project$Main$view_OT_Classic = F3(
 								}
 							}
 						},
-						{
-							ctor: '::',
-							_0: _elm_lang$svg$Svg$text(
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'obj ',
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(id),
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											' ',
-											_elm_lang$core$Basics$toString(p))))),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$svg$Svg$circle,
-							{
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$pointerEvents('none'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$cx('0'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$cy(
-											_elm_lang$core$Basics$toString(((0 - radius) - radius_small) - 3)),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$r(
-												_elm_lang$core$Basics$toString(radius_small)),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$fill('rgba(0,0,0,0.25)'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$svg$Svg_Attributes$strokeWidth('1'),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										}
-									}
-								}
-							},
-							{ctor: '[]'}),
-						_1: {ctor: '[]'}
-					}
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
 				}
-			});
+			}
+		};
 	});
 var _user$project$Main$view_OT_Square = F3(
 	function (id, pos, objecttype) {
 		var radius_small = 5;
 		var radius = 20;
 		var p = pos;
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$svg$Svg$circle,
+				{
+					ctor: '::',
+					_0: _user$project$Main$onMouseDown(id),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: A2(_user$project$Main_ops['=>'], 'cursor', 'move'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$cx('0'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$cy('0'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$r(
+										_elm_lang$core$Basics$toString(radius)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fill('rgba(255,0,0,0)'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$strokeWidth('2'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$text_,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$pointerEvents('none'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$x('0'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$y('0'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$fontFamily('Verdana'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fontSize('12'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$style(
+													{
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'},
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg$text(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'obj ',
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(id),
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										' ',
+										_elm_lang$core$Basics$toString(p))))),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		};
+	});
+var _user$project$Main$viewObjectAsSvgChildList = F3(
+	function (id, pos, objecttype) {
+		var _p20 = objecttype;
+		if (_p20.ctor === 'OT_Classic') {
+			return A3(_user$project$Main$view_OT_Classic, id, pos, objecttype);
+		} else {
+			return A3(_user$project$Main$view_OT_Square, id, pos, objecttype);
+		}
+	});
+var _user$project$Main$viewObject = F2(
+	function (drag, object) {
+		var pos = A2(_user$project$Main$getPosition, object, drag);
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{
@@ -9753,126 +9846,17 @@ var _user$project$Main$view_OT_Square = F3(
 						'translate(',
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(p.x),
+							_elm_lang$core$Basics$toString(pos.x),
 							A2(
 								_elm_lang$core$Basics_ops['++'],
 								',',
 								A2(
 									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(p.y),
+									_elm_lang$core$Basics$toString(pos.y),
 									')'))))),
 				_1: {ctor: '[]'}
 			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$svg$Svg$circle,
-					{
-						ctor: '::',
-						_0: _user$project$Main$onMouseDown(id),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
-									ctor: '::',
-									_0: A2(_user$project$Main_ops['=>'], 'cursor', 'move'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$cx('0'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$cy('0'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$r(
-											_elm_lang$core$Basics$toString(radius)),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fill('rgba(255,0,0,0)'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$strokeWidth('2'),
-													_1: {ctor: '[]'}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$svg$Svg$text_,
-						{
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$pointerEvents('none'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$x('0'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$y('0'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$fontFamily('Verdana'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fontSize('12'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$style(
-														{
-															ctor: '::',
-															_0: {ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'},
-															_1: {ctor: '[]'}
-														}),
-													_1: {ctor: '[]'}
-												}
-											}
-										}
-									}
-								}
-							}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$svg$Svg$text(
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'obj ',
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(id),
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											' ',
-											_elm_lang$core$Basics$toString(p))))),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _user$project$Main$viewObject = F2(
-	function (drag, object) {
-		var pos = A2(_user$project$Main$getPosition, object, drag);
-		var _p20 = object.objecttype;
-		if (_p20.ctor === 'OT_Classic') {
-			return A3(_user$project$Main$view_OT_Classic, object.id, pos, object.objecttype);
-		} else {
-			return A3(_user$project$Main$view_OT_Square, object.id, pos, object.objecttype);
-		}
+			A3(_user$project$Main$viewObjectAsSvgChildList, object.id, pos, object.objecttype));
 	});
 var _user$project$Main$view = function (_p21) {
 	var _p22 = _p21;
