@@ -41,7 +41,7 @@ type alias Object =
 type alias Model =
     { objects : List Object
     , drag : Maybe Drag
-    , nextid : ObjId -- ### use in a helper func in place of 13, then in place of hardcoded ids in init
+    , nextid : ObjId
     }
 
 type alias Drag =
