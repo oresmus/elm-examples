@@ -9411,7 +9411,7 @@ var _user$project$Main$init = {
 					_user$project$Main$Object,
 					2,
 					A2(_elm_lang$mouse$Mouse$Position, 200, 200),
-					_user$project$Main$OT_Classic('#3C8D2F'),
+					_user$project$Main$OT_Square(10),
 					false),
 				_1: {
 					ctor: '::',
@@ -9427,7 +9427,7 @@ var _user$project$Main$init = {
 							_user$project$Main$Object,
 							4,
 							A2(_elm_lang$mouse$Mouse$Position, -50, 200),
-							_user$project$Main$OT_Classic('#8D2F3C'),
+							_user$project$Main$OT_Square(20),
 							false),
 						_1: {
 							ctor: '::',
@@ -9443,7 +9443,7 @@ var _user$project$Main$init = {
 									_user$project$Main$Object,
 									6,
 									A2(_elm_lang$mouse$Mouse$Position, -350, 200),
-									_user$project$Main$OT_Classic('#2F3C8D'),
+									_user$project$Main$OT_Square(10),
 									false),
 								_1: {
 									ctor: '::',
@@ -9459,7 +9459,7 @@ var _user$project$Main$init = {
 											_user$project$Main$Object,
 											8,
 											A2(_elm_lang$mouse$Mouse$Position, 200, -200),
-											_user$project$Main$OT_Classic('#3C8D2F'),
+											_user$project$Main$OT_Square(15),
 											false),
 										_1: {
 											ctor: '::',
@@ -9475,7 +9475,7 @@ var _user$project$Main$init = {
 													_user$project$Main$Object,
 													10,
 													A2(_elm_lang$mouse$Mouse$Position, -50, -200),
-													_user$project$Main$OT_Classic('#8D2F3C'),
+													_user$project$Main$OT_Square(20),
 													false),
 												_1: {
 													ctor: '::',
@@ -9491,7 +9491,7 @@ var _user$project$Main$init = {
 															_user$project$Main$Object,
 															12,
 															A2(_elm_lang$mouse$Mouse$Position, -350, -200),
-															_user$project$Main$OT_Classic('#2F3C8D'),
+															_user$project$Main$OT_Square(25),
 															false),
 														_1: {ctor: '[]'}
 													}
@@ -9605,11 +9605,11 @@ var _user$project$Main$onMouseDown = function (id) {
 			_user$project$Main$DragStart(id),
 			_elm_lang$mouse$Mouse$position));
 };
-var _user$project$Main$viewObject = F2(
-	function (drag, object) {
+var _user$project$Main$view_OT_Classic = F2(
+	function (pos, object) {
 		var radius_small = 5;
 		var radius = 20;
-		var p = A2(_user$project$Main$getPosition, object, drag);
+		var p = pos;
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{ctor: '[]'},
@@ -9756,15 +9756,138 @@ var _user$project$Main$viewObject = F2(
 				}
 			});
 	});
-var _user$project$Main$view = function (_p13) {
-	var _p14 = _p13;
+var _user$project$Main$view_OT_Square = F2(
+	function (pos, object) {
+		var radius_small = 5;
+		var radius = 20;
+		var p = pos;
+		return A2(
+			_elm_lang$svg$Svg$g,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$circle,
+					{
+						ctor: '::',
+						_0: _user$project$Main$onMouseDown(object.id),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: A2(_user$project$Main_ops['=>'], 'cursor', 'move'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$cx(
+									_elm_lang$core$Basics$toString(p.x)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$cy(
+										_elm_lang$core$Basics$toString(p.y)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$r(
+											_elm_lang$core$Basics$toString(radius)),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$fill('rgba(255,0,0,0)'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$svg$Svg_Attributes$strokeWidth('2'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$text_,
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$pointerEvents('none'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$x(
+									_elm_lang$core$Basics$toString(p.x)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$y(
+										_elm_lang$core$Basics$toString(p.y)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fontFamily('Verdana'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$fontSize('12'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$style(
+														{
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: '-webkit-user-select', _1: 'none'},
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg$text(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'obj ',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(object.id),
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											' ',
+											_elm_lang$core$Basics$toString(p))))),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$Main$viewObject = F2(
+	function (drag, object) {
+		var pos = A2(_user$project$Main$getPosition, object, drag);
+		var _p13 = object.objecttype;
+		if (_p13.ctor === 'OT_Classic') {
+			return A2(_user$project$Main$view_OT_Classic, pos, object);
+		} else {
+			return A2(_user$project$Main$view_OT_Square, pos, object);
+		}
+	});
+var _user$project$Main$view = function (_p14) {
+	var _p15 = _p14;
 	var view_ = {
 		ctor: '::',
 		_0: A2(_user$project$Main$drawLegendText, 'The objects are draggable', '(by their big circles only).'),
 		_1: A2(
 			_elm_lang$core$List$map,
-			_user$project$Main$viewObject(_p14.drag),
-			_p14.objects)
+			_user$project$Main$viewObject(_p15.drag),
+			_p15.objects)
 	};
 	return A2(
 		_elm_lang$svg$Svg$svg,

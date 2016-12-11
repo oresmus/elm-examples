@@ -52,17 +52,17 @@ type alias Drag =
 init : ( Model, Cmd Msg )
 init = ( Model [
                   Object 1 (Position  50 200)  (OT_Classic "#8D2F3C") False
-                , Object 2 (Position 200 200)  (OT_Classic "#3C8D2F") False
+                , Object 2 (Position 200 200)  (OT_Square 10) False
                 , Object 3 (Position 350 200)  (OT_Classic "#2F3C8D") False
-                , Object 4 (Position  -50 200)  (OT_Classic "#8D2F3C") False
+                , Object 4 (Position  -50 200)  (OT_Square 20) False
                 , Object 5 (Position -200 200)  (OT_Classic "#3C8D2F") False
-                , Object 6 (Position -350 200)  (OT_Classic "#2F3C8D") False
+                , Object 6 (Position -350 200)  (OT_Square 10) False
                 , Object 7 (Position  50 -200)  (OT_Classic "#8D2F3C") False
-                , Object 8 (Position 200 -200)  (OT_Classic "#3C8D2F") False
+                , Object 8 (Position 200 -200)  (OT_Square 15) False
                 , Object 9 (Position 350 -200)  (OT_Classic "#2F3C8D") False
-                , Object 10 (Position  -50 -200)  (OT_Classic "#8D2F3C") False
+                , Object 10 (Position  -50 -200)  (OT_Square 20) False
                 , Object 11 (Position -200 -200)  (OT_Classic "#3C8D2F") False
-                , Object 12 (Position -350 -200)  (OT_Classic "#2F3C8D") False
+                , Object 12 (Position -350 -200)  (OT_Square 25) False
            ] Nothing, Cmd.none )
 
 
@@ -208,17 +208,16 @@ viewObject : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with
 viewObject drag object =
   let
     pos = getPosition object drag 
-        -- elm syntax note [from older version of this code]: I could never get this to pass compiler when assigning directly to (x1, y1)
   in
-    case object of
+    case object.objecttype of
         OT_Classic _ -> view_OT_Classic pos object
-        OT_Square _ -> CantYetHappen -- ###
+        OT_Square _ -> view_OT_Square pos object
 
--- ### FIX TYPES
-view_OT_Classic : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with output type Svg Msg or Html Msg 
-view_OT_Classic drag object =
+view_OT_Classic : Position -> Object -> Svg Msg -- ### defect: we mean, but can't say, "Object whose objecttype is a OT_Classic". Should we factor??
+view_OT_Classic pos object =
   let
-    p = getPosition object drag -- elm syntax note: I could never get this to pass compiler when assigning directly to (x1, y1)
+    p = pos
+        -- elm syntax note [from older version of this code]: I could never get this to pass compiler when assigning directly to (x1, y1)
     radius = 20
     radius_small = 5
   in
@@ -227,6 +226,7 @@ view_OT_Classic drag object =
           -- onMouseDown object.id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
           -- style [ "cursor" => "move" ]
        ]
+      -- ### doesn't yet use object.objecttype
       [ circle
           [ onMouseDown object.id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
           , cx          (toString p.x)
@@ -259,6 +259,40 @@ view_OT_Classic drag object =
           , stroke "black"
           , strokeWidth "1"
           ] []
+      ]
+
+view_OT_Square : Position -> Object -> Svg Msg
+view_OT_Square pos object =
+  let
+    p = pos
+    radius = 20
+    radius_small = 5
+  in
+    g
+      [
+       ]
+      -- ### not yet an actual square; doesn't yet use object.objecttype
+      [ circle
+          [ onMouseDown object.id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
+          , cx          (toString p.x)
+          , cy          (toString p.y)
+          , r           (toString radius)
+          , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
+          , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
+          , strokeWidth "2"
+          ] []
+      , Svg.text_
+          [ pointerEvents "none" -- prevents blocking mousedown or changing to typing cursor
+          , x (toString p.x), 
+            y (toString p.y), 
+            fontFamily "Verdana", 
+            fontSize "12",
+            textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically (maybe use tspan dy??). ###
+          , style
+              [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
+
+          ] 
+          [Svg.text ("obj " ++ (toString object.id) ++ " " ++ (toString p) )]
       ]
 
 getPosition : Object -> Maybe Drag -> Position
