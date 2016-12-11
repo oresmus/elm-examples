@@ -51,23 +51,23 @@ type alias Drag =
 
 
 init : ( Model, Cmd Msg )
-init = ( Model [
-                  Object 1 (Position  50 200)  (OT_Classic "#8D2F3C") False
-                , Object 2 (Position 200 200)  (OT_Square 10) False
-                , Object 3 (Position 350 200)  (OT_Classic "#2F3C8D") False
-                , Object 4 (Position  -50 200)  (OT_Square 20) False
-                , Object 5 (Position -200 200)  (OT_Classic "#3C8D2F") False
-                , Object 6 (Position -350 200)  (OT_Square 10) False
-                , Object 7 (Position  50 -200)  (OT_Classic "#8D2F3C") False
-                , Object 8 (Position 200 -200)  (OT_Square 15) False
-                , Object 9 (Position 350 -200)  (OT_Classic "#2F3C8D") False
-                , Object 10 (Position  -50 -200)  (OT_Square 20) False
-                , Object 11 (Position -200 -200)  (OT_Classic "#3C8D2F") False
-                , Object 12 (Position -350 -200)  (OT_Square 25) False
-           ] Nothing 13, Cmd.none )
+init = ( Model [] Nothing 1
+         |> addNewObject (Position  50 200)  (OT_Classic "#8D2F3C")
+         |> addNewObject (Position 200 200)  (OT_Square 10) 
+         |> addNewObject (Position 350 200)  (OT_Classic "#2F3C8D") 
+         |> addNewObject (Position  -50 200)  (OT_Square 20) 
+         |> addNewObject (Position -200 200)  (OT_Classic "#3C8D2F") 
+         |> addNewObject (Position -350 200)  (OT_Square 10) 
+         |> addNewObject (Position  50 -200)  (OT_Classic "#8D2F3C") 
+         |> addNewObject (Position 200 -200)  (OT_Square 15) 
+         |> addNewObject (Position 350 -200)  (OT_Classic "#2F3C8D") 
+         |> addNewObject (Position  -50 -200)  (OT_Square 20) 
+         |> addNewObject (Position -200 -200)  (OT_Classic "#3C8D2F") 
+         |> addNewObject (Position -350 -200)  (OT_Square 25) 
+       , Cmd.none )
 
 
--- add a new object to the model (which is not being dragged) ### also use to make init
+-- add a new object to the model (which is not being dragged) 
 
 -- version which also returns new object id
 addNewObject_retID : Model -> Position -> ObjectType -> ( Model , ObjId )
