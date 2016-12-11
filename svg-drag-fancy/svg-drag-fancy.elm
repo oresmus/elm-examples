@@ -67,6 +67,14 @@ init = ( Model [
            ] Nothing 13, Cmd.none )
 
 
+-- add a new object to the model (which is not being dragged) ### use to make init ### use in DragStartWhole
+addNewObject : Model -> Position -> ObjectType -> Model
+addNewObject ({objects, drag, nextid} as model) pos objtype =
+    Model
+      (objects ++ [ (Object nextid pos objtype False) ])
+      drag
+      (nextid + 1)
+
 -- UPDATE
 
 
@@ -97,6 +105,7 @@ updateHelp msg ({objects, drag, nextid} as model) =
     DragStartWhole xy ->
       Model 
           (objects ++ [ (Object 13 xy (OT_Classic "#3C8D2F") True) ]) -- ### bug: all new objects have same id; this means they'll drag in sync ###
+-- ### TO FIX use addNewObject
           (Just (Drag xy xy))
           nextid
 
