@@ -252,13 +252,16 @@ view_OT_Classic id pos objecttype =
       [
           -- onMouseDown id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
           -- style [ "cursor" => "move" ],
-          transform "translate(1,1)" -- ### syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+          -- transform "translate(1,1)" -- ### syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+          -- ### want: 
+          transform ("translate(" ++ (toString p.x) ++ "," ++ (toString p.y) ++ ")")
+          -- transform ("translate(" ++ "1" ++ "," ++ "1" ++ ")") -- works
        ]
       -- ### doesn't yet use objecttype
       [ circle
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
-          , cx          (toString p.x)
-          , cy          (toString p.y)
+          , cx          "0"
+          , cy          "0"
           , r           (toString radius)
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
@@ -266,8 +269,8 @@ view_OT_Classic id pos objecttype =
           ] []
       , Svg.text_
           [ pointerEvents "none" -- prevents blocking mousedown or changing to typing cursor
-          , x (toString p.x), 
-            y (toString p.y), 
+          , x "0", 
+            y "0", 
             fontFamily "Verdana", 
             fontSize "12",
             textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically (maybe use tspan dy??). ###
@@ -280,8 +283,8 @@ view_OT_Classic id pos objecttype =
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       , circle -- smaller, above the main circle.
           [ pointerEvents "none" -- prevents this object blocking mousedown for objects visually behind it
-          , cx     (toString p.x)
-          , cy     (toString (p.y - radius - radius_small - 3))
+          , cx     "0"
+          , cy     (toString (0 - radius - radius_small - 3))
           , r      (toString radius_small)
           , fill   "rgba(0,0,0,0.25)" -- transparent gray
           , stroke "black"
