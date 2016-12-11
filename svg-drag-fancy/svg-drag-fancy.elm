@@ -10,7 +10,7 @@ import Html.Attributes exposing (style)
 
 import Svg exposing (Svg,svg,circle,g)
 import Svg.Events exposing (on)
-import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height,pointerEvents)
+import Svg.Attributes exposing (x,y,dy,fontSize,fontFamily,textAnchor,cx,cy,r,fill,stroke,strokeWidth,viewBox,width,height,pointerEvents,transform)
 
 import Json.Decode as Json
 import Mouse exposing (Position)
@@ -251,7 +251,8 @@ view_OT_Classic id pos objecttype =
     g
       [
           -- onMouseDown id, -- note: this works on the text and the filled circle, even if fill is entirely transparent (alpha of 0).
-          -- style [ "cursor" => "move" ]
+          -- style [ "cursor" => "move" ],
+          transform "translate(1,1)" -- ### syntax test. works. see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
        ]
       -- ### doesn't yet use objecttype
       [ circle
