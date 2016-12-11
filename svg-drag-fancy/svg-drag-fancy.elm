@@ -68,12 +68,25 @@ init = ( Model [
 
 
 -- add a new object to the model (which is not being dragged) ### use to make init ### use in DragStartWhole
+
+-- version which also returns new object id
+addNewObject_retID : Model -> Position -> ObjectType -> ( Model , ObjId )
+addNewObject_retID ({objects, drag, nextid} as model) pos objtype =
+    ( Model
+        (objects ++ [ (Object nextid pos objtype False) ])
+        drag
+        (nextid + 1) ,
+      nextid
+    )
+
+-- version which only returns model
 addNewObject : Model -> Position -> ObjectType -> Model
-addNewObject ({objects, drag, nextid} as model) pos objtype =
-    Model
-      (objects ++ [ (Object nextid pos objtype False) ])
-      drag
-      (nextid + 1)
+addNewObject model pos objtype =
+    let 
+        (model, newid) = addNewObject_retID model pos objtype -- ### will this work? no, but error message is not helpful.
+    in
+        model
+
 
 -- UPDATE
 
