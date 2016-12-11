@@ -29,10 +29,12 @@ main =
 
 type alias ObjId = Int
 
+type ObjectType = OT_Classic String | OT_Square Int -- to be extended ###
+
 type alias Object =
     { id : ObjId
     , position : Position
-    , colorstyle : String
+    , objtype : ObjectType -- replaces colorstyle -- not yet used ###
     , dragging : Bool
     }
 
@@ -49,18 +51,18 @@ type alias Drag =
 
 init : ( Model, Cmd Msg )
 init = ( Model [
-                  Object 1 (Position  50 200)  "#8D2F3C" False
-                , Object 2 (Position 200 200)  "#3C8D2F" False
-                , Object 3 (Position 350 200)  "#2F3C8D" False
-                , Object 4 (Position  -50 200)  "#8D2F3C" False
-                , Object 5 (Position -200 200)  "#3C8D2F" False
-                , Object 6 (Position -350 200)  "#2F3C8D" False
-                , Object 7 (Position  50 -200)  "#8D2F3C" False
-                , Object 8 (Position 200 -200)  "#3C8D2F" False
-                , Object 9 (Position 350 -200)  "#2F3C8D" False
-                , Object 10 (Position  -50 -200)  "#8D2F3C" False
-                , Object 11 (Position -200 -200)  "#3C8D2F" False
-                , Object 12 (Position -350 -200)  "#2F3C8D" False
+                  Object 1 (Position  50 200)  (OT_Classic "#8D2F3C") False
+                , Object 2 (Position 200 200)  (OT_Classic "#3C8D2F") False
+                , Object 3 (Position 350 200)  (OT_Classic "#2F3C8D") False
+                , Object 4 (Position  -50 200)  (OT_Classic "#8D2F3C") False
+                , Object 5 (Position -200 200)  (OT_Classic "#3C8D2F") False
+                , Object 6 (Position -350 200)  (OT_Classic "#2F3C8D") False
+                , Object 7 (Position  50 -200)  (OT_Classic "#8D2F3C") False
+                , Object 8 (Position 200 -200)  (OT_Classic "#3C8D2F") False
+                , Object 9 (Position 350 -200)  (OT_Classic "#2F3C8D") False
+                , Object 10 (Position  -50 -200)  (OT_Classic "#8D2F3C") False
+                , Object 11 (Position -200 -200)  (OT_Classic "#3C8D2F") False
+                , Object 12 (Position -350 -200)  (OT_Classic "#2F3C8D") False
            ] Nothing, Cmd.none )
 
 
@@ -93,7 +95,7 @@ updateHelp msg ({objects, drag} as model) =
 
     DragStartWhole xy ->
       Model 
-          (objects ++ [ (Object 13 xy "#3C8D2F" True) ]) -- ### bug: all new objects have same id; this means they'll drag in sync ###
+          (objects ++ [ (Object 13 xy (OT_Classic "#3C8D2F") True) ]) -- ### bug: all new objects have same id; this means they'll drag in sync ###
           (Just (Drag xy xy))
 
 startdrag : ObjId -> Bool -> List Object -> List Object
@@ -219,7 +221,7 @@ viewObject drag object =
           , cx          (toString p.x)
           , cy          (toString p.y)
           , r           (toString radius)
-          , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", object.colorstyle
+          , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
           ] []

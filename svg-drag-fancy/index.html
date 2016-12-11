@@ -9377,12 +9377,22 @@ var _user$project$Main$startdrag = F3(
 	});
 var _user$project$Main$Object = F4(
 	function (a, b, c, d) {
-		return {id: a, position: b, colorstyle: c, dragging: d};
+		return {id: a, position: b, objtype: c, dragging: d};
 	});
 var _user$project$Main$Model = F2(
 	function (a, b) {
 		return {objects: a, drag: b};
 	});
+var _user$project$Main$Drag = F2(
+	function (a, b) {
+		return {start: a, current: b};
+	});
+var _user$project$Main$OT_Square = function (a) {
+	return {ctor: 'OT_Square', _0: a};
+};
+var _user$project$Main$OT_Classic = function (a) {
+	return {ctor: 'OT_Classic', _0: a};
+};
 var _user$project$Main$init = {
 	ctor: '_Tuple2',
 	_0: A2(
@@ -9393,7 +9403,7 @@ var _user$project$Main$init = {
 				_user$project$Main$Object,
 				1,
 				A2(_elm_lang$mouse$Mouse$Position, 50, 200),
-				'#8D2F3C',
+				_user$project$Main$OT_Classic('#8D2F3C'),
 				false),
 			_1: {
 				ctor: '::',
@@ -9401,7 +9411,7 @@ var _user$project$Main$init = {
 					_user$project$Main$Object,
 					2,
 					A2(_elm_lang$mouse$Mouse$Position, 200, 200),
-					'#3C8D2F',
+					_user$project$Main$OT_Classic('#3C8D2F'),
 					false),
 				_1: {
 					ctor: '::',
@@ -9409,7 +9419,7 @@ var _user$project$Main$init = {
 						_user$project$Main$Object,
 						3,
 						A2(_elm_lang$mouse$Mouse$Position, 350, 200),
-						'#2F3C8D',
+						_user$project$Main$OT_Classic('#2F3C8D'),
 						false),
 					_1: {
 						ctor: '::',
@@ -9417,7 +9427,7 @@ var _user$project$Main$init = {
 							_user$project$Main$Object,
 							4,
 							A2(_elm_lang$mouse$Mouse$Position, -50, 200),
-							'#8D2F3C',
+							_user$project$Main$OT_Classic('#8D2F3C'),
 							false),
 						_1: {
 							ctor: '::',
@@ -9425,7 +9435,7 @@ var _user$project$Main$init = {
 								_user$project$Main$Object,
 								5,
 								A2(_elm_lang$mouse$Mouse$Position, -200, 200),
-								'#3C8D2F',
+								_user$project$Main$OT_Classic('#3C8D2F'),
 								false),
 							_1: {
 								ctor: '::',
@@ -9433,7 +9443,7 @@ var _user$project$Main$init = {
 									_user$project$Main$Object,
 									6,
 									A2(_elm_lang$mouse$Mouse$Position, -350, 200),
-									'#2F3C8D',
+									_user$project$Main$OT_Classic('#2F3C8D'),
 									false),
 								_1: {
 									ctor: '::',
@@ -9441,7 +9451,7 @@ var _user$project$Main$init = {
 										_user$project$Main$Object,
 										7,
 										A2(_elm_lang$mouse$Mouse$Position, 50, -200),
-										'#8D2F3C',
+										_user$project$Main$OT_Classic('#8D2F3C'),
 										false),
 									_1: {
 										ctor: '::',
@@ -9449,7 +9459,7 @@ var _user$project$Main$init = {
 											_user$project$Main$Object,
 											8,
 											A2(_elm_lang$mouse$Mouse$Position, 200, -200),
-											'#3C8D2F',
+											_user$project$Main$OT_Classic('#3C8D2F'),
 											false),
 										_1: {
 											ctor: '::',
@@ -9457,7 +9467,7 @@ var _user$project$Main$init = {
 												_user$project$Main$Object,
 												9,
 												A2(_elm_lang$mouse$Mouse$Position, 350, -200),
-												'#2F3C8D',
+												_user$project$Main$OT_Classic('#2F3C8D'),
 												false),
 											_1: {
 												ctor: '::',
@@ -9465,7 +9475,7 @@ var _user$project$Main$init = {
 													_user$project$Main$Object,
 													10,
 													A2(_elm_lang$mouse$Mouse$Position, -50, -200),
-													'#8D2F3C',
+													_user$project$Main$OT_Classic('#8D2F3C'),
 													false),
 												_1: {
 													ctor: '::',
@@ -9473,7 +9483,7 @@ var _user$project$Main$init = {
 														_user$project$Main$Object,
 														11,
 														A2(_elm_lang$mouse$Mouse$Position, -200, -200),
-														'#3C8D2F',
+														_user$project$Main$OT_Classic('#3C8D2F'),
 														false),
 													_1: {
 														ctor: '::',
@@ -9481,7 +9491,7 @@ var _user$project$Main$init = {
 															_user$project$Main$Object,
 															12,
 															A2(_elm_lang$mouse$Mouse$Position, -350, -200),
-															'#2F3C8D',
+															_user$project$Main$OT_Classic('#2F3C8D'),
 															false),
 														_1: {ctor: '[]'}
 													}
@@ -9499,10 +9509,6 @@ var _user$project$Main$init = {
 		_elm_lang$core$Maybe$Nothing),
 	_1: _elm_lang$core$Platform_Cmd$none
 };
-var _user$project$Main$Drag = F2(
-	function (a, b) {
-		return {start: a, current: b};
-	});
 var _user$project$Main$updateHelp = F2(
 	function (msg, _p5) {
 		var _p6 = _p5;
@@ -9541,7 +9547,12 @@ var _user$project$Main$updateHelp = F2(
 						_p12,
 						{
 							ctor: '::',
-							_0: A4(_user$project$Main$Object, 13, _p11, '#3C8D2F', true),
+							_0: A4(
+								_user$project$Main$Object,
+								13,
+								_p11,
+								_user$project$Main$OT_Classic('#3C8D2F'),
+								true),
 							_1: {ctor: '[]'}
 						}),
 					_elm_lang$core$Maybe$Just(
