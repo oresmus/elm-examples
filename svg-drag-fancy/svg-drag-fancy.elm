@@ -299,12 +299,13 @@ view_OT_Square id pos objecttype =
   in
     g
       [
+          transform ("translate(" ++ (toString p.x) ++ "," ++ (toString p.y) ++ ")")
        ]
       -- ### not yet an actual square; doesn't yet use objecttype
       [ circle
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
-          , cx          (toString p.x)
-          , cy          (toString p.y)
+          , cx          "0"
+          , cy          "0"
           , r           (toString radius)
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
@@ -312,8 +313,8 @@ view_OT_Square id pos objecttype =
           ] []
       , Svg.text_
           [ pointerEvents "none" -- prevents blocking mousedown or changing to typing cursor
-          , x (toString p.x), 
-            y (toString p.y), 
+          , x "0", 
+            y "0", 
             fontFamily "Verdana", 
             fontSize "12",
             textAnchor "middle" -- this centers the text horizontally. I don't know how to center it vertically (maybe use tspan dy??). ###
