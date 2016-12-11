@@ -34,7 +34,7 @@ type ObjectType = OT_Classic String | OT_Square Int -- to be extended ###
 type alias Object =
     { id : ObjId
     , position : Position
-    , objtype : ObjectType -- replaces colorstyle -- not yet used ###
+    , objecttype : ObjectType -- replaces colorstyle -- not yet used ###
     , dragging : Bool
     }
 
