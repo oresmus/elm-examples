@@ -30,7 +30,17 @@ possible future mods: ###
 - ultimately it should grow into some kind of mouse-controlled "drawing program".
   - with different drag behaviors on different objects, eg dividers
 
-SHORT TERM TODO:
-- upgrade to Elm 0.18 -- might be enough to rename var' to var_ and recompile from scratch
-  - for details, see code comments
-- copy to new example folder for adding fancier things
+TODO:
+- copy to new example folder for adding fancier things (like the ones described above)
+
+===
+
+-- ISSUES FOR UPGRADING ELM VERSION TO 0.18:
+-- + a local variable view' will need to be renamed.
+-- + the use of Svg.text' will need revision to work with however that was renamed in the Svg module.
+--   + it was renamed to Svg.text_, according to http://package.elm-lang.org/packages/elm-lang/svg/2.0.0/Svg
+-- Maybe the automatic upgrader will fix these itself? I could try it, except it might reformat in ways I won't like.
+-- + So for now I am just doing those changes manually.
+-- Discovered by experiment or by looking at http://elm-lang.org/examples/drag current state (maybe in upgrade doc too?):
+-- + remove Html.App, just get program from Html not from App
+
