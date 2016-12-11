@@ -207,6 +207,17 @@ drawLegendText line1 line2 =
 viewObject : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with output type Svg Msg or Html Msg 
 viewObject drag object =
   let
+    pos = getPosition object drag 
+        -- elm syntax note [from older version of this code]: I could never get this to pass compiler when assigning directly to (x1, y1)
+  in
+    case object of
+        OT_Classic _ -> view_OT_Classic pos object
+        OT_Square _ -> CantYetHappen -- ###
+
+-- ### FIX TYPES
+view_OT_Classic : Maybe Drag -> Object -> Svg Msg -- note, compiles just as well with output type Svg Msg or Html Msg 
+view_OT_Classic drag object =
+  let
     p = getPosition object drag -- elm syntax note: I could never get this to pass compiler when assigning directly to (x1, y1)
     radius = 20
     radius_small = 5
