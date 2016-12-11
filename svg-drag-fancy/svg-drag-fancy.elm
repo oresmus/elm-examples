@@ -83,9 +83,9 @@ addNewObject_retID ({objects, drag, nextid} as model) pos objtype =
 addNewObject : Model -> Position -> ObjectType -> Model
 addNewObject model pos objtype =
     let 
-        (model, newid) = addNewObject_retID model pos objtype -- ### will this work? no, but error message is not helpful.
+        (newmodel, newid) = addNewObject_retID model pos objtype -- [this worked once i made sure the varnames were not being reused ###]
     in
-        model
+        newmodel
 
 
 -- UPDATE
