@@ -281,7 +281,7 @@ view_OT_Classic id pos objecttype =
               [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
 
           ] 
-          [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString p) )]
+          [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString pos) )]
         -- for doc of svg attrs, see https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text
         -- and http://package.elm-lang.org/packages/elm-lang/svg/1.1.1/Svg-Attributes
       , circle -- smaller, above the main circle.
@@ -321,7 +321,7 @@ view_OT_Square id pos objecttype =
               [ ("-webkit-user-select", "none") ] -- make text unselectable by browser (seems to work, though hard to test with certainty)
 
           ] 
-          [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString p) )]
+          [Svg.text ("obj " ++ (toString id) ++ " " ++ (toString pos) )]
       ]
 
 
