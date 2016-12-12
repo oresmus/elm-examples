@@ -299,14 +299,11 @@ view_OT_Square : ObjId -> Position -> ObjectType -> List (Svg Msg) -- ### same i
 view_OT_Square id pos objecttype =
   let
     p = pos
-    radius = 20
-    radius_small = 5
   in
       -- ### doesn't yet use objecttype
       [ 
         polygon
           [ onMouseDown id , style [ "cursor" => "move" ] -- putting onMouseDown here makes only the main circle work for dragging
---          , r           (toString radius)
           , fill        "rgba(255,0,0,0)" -- note: these also work here: "rgba(255,0,0,0.1)", "#0B79CE", "red", [obsolete] object.colorstyle
           , stroke      "black" -- (note: stroke and strokeWidth can be left out; they outline the circle)
           , strokeWidth "2"
