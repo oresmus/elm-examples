@@ -255,8 +255,6 @@ view_OT_Classic : ObjId -> Position -> ObjectType -> List (Svg Msg)
 -- ### ISSUE: OT_Classic is not a subtype of ObjectType, since it's not a type! How do I change type sig to allow only that case?
 view_OT_Classic id pos objecttype =
   let
-    p = pos
-        -- elm syntax note [from older version of this code]: I could never get this to pass compiler when assigning directly to (x1, y1)
     radius = 20
     radius_small = 5
   in
@@ -297,9 +295,6 @@ view_OT_Classic id pos objecttype =
 
 view_OT_Square : ObjId -> Position -> ObjectType -> List (Svg Msg) -- ### same issue as sibfunc: should use a more limited case of ObjectType
 view_OT_Square id pos objecttype =
-  let
-    p = pos
-  in
       -- ### doesn't yet use objecttype
       [ 
         polygon
